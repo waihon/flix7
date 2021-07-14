@@ -38,8 +38,14 @@ describe "Viewing the list of movies" do
     expect(page).to have_text("Flop!")
     expect(page).to have_text("$403,706,375")
 
+    expect(page).not_to have_text('2008-05-02')
+    expect(page).to have_text(2008)
+    expect(page).not_to have_text('1978-12-15')
+    expect(page).to have_text(1978)
+    expect(page).not_to have_text('2002-05-03"')
+    expect(page).to have_text(2002)
+
     expect(page).to have_text(@movie1.rating)
-    expect(page).to have_text(@movie1.released_on)
   end
 
 end
