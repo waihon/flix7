@@ -6,7 +6,7 @@
     (<%= movie.rating %>):
     <%= number_to_currency(movie.total_gross, precision: 0) %>
     <p>
-      <%= movie.description %>
+      <%= truncate(movie.description, length: 40, separator: ' ') %>
     </p>
     <p>
       <%= movie.released_on %>
