@@ -26,6 +26,6 @@ describe "Navigating movies" do
 
     click_link movie.title
 
-    expect(current_path).to eq(movies_path(movie))
+    expect(current_path).to eq(movie_path(movie))
   end
 end
