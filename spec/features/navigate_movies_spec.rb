@@ -32,4 +32,14 @@ describe "Navigating movies" do
     expect(page).to have_text(movie2.title)
     expect(page).to have_text(movie3.title)
   end
+
+  it "allows navigation from logo to the root page" do
+    movie = Movie.create(movie_attributes)
+
+    visit movie_url(movie)
+    expect(page).to have_css("img[src*='logo']")
+
+    find(:xpath, "//a/img[@id='header-logo']/..").click
+    expect(current_path).to eq(root_path)
+  end
 end
