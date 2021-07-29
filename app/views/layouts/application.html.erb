@@ -13,7 +13,7 @@
   <body>
     <header>
       <nav>
-        <%= image_tag "logo" %>
+        <%= link_to image_tag("logo.png", id: "header-logo", alt: "Header Logo"), root_path %>
         <ul>
           <li>
             <%= link_to "All Movies", movies_path %>
