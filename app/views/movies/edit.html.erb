@@ -1,0 +1,7 @@
+<h1>
+  Editing <%= @movie.title %>
+</h1>
+<%= form_with(model: @movie, local: true) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+<% end %>
