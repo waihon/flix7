@@ -438,6 +438,10 @@ form:not([class="button_to"]) {
 		width: 100%;
 	}
 
+	textarea {
+		height: auto;
+	}
+
 	select.date {
 		display: inline-block;
 		margin-bottom: 0.75rem;
