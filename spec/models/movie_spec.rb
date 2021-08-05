@@ -28,4 +28,12 @@ describe "A movie" do
 
     expect(Movie.hits).to eq([movie3, movie1])
   end
+
+  it "return movies with less than $225M total gross, ordered with the lowest grossing movie first" do
+    movie1 = Movie.create(movie_attributes(total_gross: 224_999_999))
+    movie2 = Movie.create(movie_attributes(total_gross: 225_000_000))
+    movie3 = Movie.create(movie_attributes(total_gross: 224_999_998))
+
+    expect(Movie.flops).to eq([movie3, movie1])
+  end
 end
