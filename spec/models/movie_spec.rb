@@ -20,4 +20,12 @@ describe "A movie" do
 
     expect(Movie.released).to eq([movie3, movie2, movie1])
   end
+
+  it "returns movies with at least $300M total gross, ordered with the highest gross movie first" do
+    movie1 = Movie.create(movie_attributes(total_gross: 300_000_000))
+    movie2 = Movie.create(movie_attributes(total_gross: 299_999_999))
+    movie3 = Movie.create(movie_attributes(total_gross: 300_000_001))
+
+    expect(Movie.hits).to eq([movie3, movie1])
+  end
 end
