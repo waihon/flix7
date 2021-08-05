@@ -36,4 +36,13 @@ describe "A movie" do
 
     expect(Movie.flops).to eq([movie3, movie1])
   end
+
+  it "returns the last three movies that have been created, ordered with the most recently-added movie first" do
+    movie1 = Movie.create(movie_attributes(title: "Movie 1"))
+    movie2 = Movie.create(movie_attributes(title: "Movie 2"))
+    movie3 = Movie.create(movie_attributes(title: "Movie 3"))
+    movie4 = Movie.create(movie_attributes(title: "Movie 4"))
+
+    expect(Movie.recently_added).to eq([movie4, movie3, movie2])
+  end
 end
