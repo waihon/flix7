@@ -7,6 +7,6 @@ def movie_attributes(overrides = {})
     released_on: "2008-05-02",
     director: "Jon Favreau",
     duration: "126 min",
-    image_file_name: "ironman.jpg"
+    image_file_name: "ironman.png"
   }.merge(overrides)
 end
