@@ -10,5 +10,8 @@ describe "Viewing an individual movie" do
     expect(page).to have_text("2008")
     expect(page).to have_text(movie.description)
     expect(page).to have_text("$300,000,000")
+    expect(page).to have_text("Jon Favreau")
+    expect(page).to have_text("126 min")
+    expect(page).to have_xpath("//img[contains(@src, 'ironman.jpg')]")
   end
 end
