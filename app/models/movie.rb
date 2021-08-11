@@ -4,6 +4,7 @@ class Movie < ApplicationRecord
   validates :description, length: { minimum: 25 }
   validates :released_on, presence: true
   validates :duration, presence: true
+  validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
 
   def self.released
     Movie.where("released_on < ?", Time.now).order(released_on: :desc)
