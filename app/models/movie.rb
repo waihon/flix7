@@ -1,6 +1,7 @@
 class Movie < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true
+  validates :description, length: { minimum: 25 }
   validates :released_on, presence: true
   validates :duration, presence: true
 
