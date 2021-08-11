@@ -75,7 +75,7 @@ describe "A movie" do
 
     movie.valid?
 
-    expect(movie.errrors[:duration].any?).to eq(true)
+    expect(movie.errors[:duration].any?).to eq(true)
   end
 
   it "requires a description over 24 characters" do
