@@ -111,7 +111,7 @@ describe "A movie" do
   end
 
   it "accepts properly formatted image file names" do
-    file_names = %w[e.png movie.png movie.jpg movie.gif MOVIE.GIF]
+    file_names = %w[e.png movie.png movie.jpg]
     file_names.each do |file_name|
       movie = Movie.new(image_file_name: file_name)
       movie.valid?
@@ -120,7 +120,7 @@ describe "A movie" do
   end
 
   it "rejects improperly formatted image file names" do
-    file_names = %w[movie .jpg .png .gif movie.pdf movie.doc]
+    file_names = %w[movie .jpg .png movie.gif movie.pdf movie.doc]
     file_names.each do |file_name|
       movie = Movie.new(image_file_name: file_name)
       movie.valid?
