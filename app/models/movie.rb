@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  has_many :reviews
+
   validates :title, presence: true
   validates :description, presence: true
   validates :description, length: { minimum: 25 }, allow_blank: true
