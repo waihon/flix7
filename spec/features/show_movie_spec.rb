@@ -13,6 +13,6 @@ describe "Viewing an individual movie" do
     expect(page).to have_text("Jon Favreau")
     expect(page).to have_text("126 min")
     expect(page).to have_xpath("//img[contains(@src, 'ironman.png')]")
-    expect(page).to have_link("Reviews")
+    expect(page).to have_link("0 Reviews")
   end
 end
