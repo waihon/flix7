@@ -64,4 +64,13 @@ describe "A review" do
       expect(review.errors[:stars].first).to eq("must be between 1 and 5")
     end
   end
+
+  it "calculates stars as percent" do
+    stars = Review::STARS
+    percent = [20.0, 40.0, 60.0, 80.0, 100.0]
+    stars.each_with_index do |star, index|
+      review = Review.new(stars: star)
+      expect(review.stars_as_percent).to eq(percent[index])
+    end
+  end
 end
