@@ -14,5 +14,8 @@ describe "Viewing an individual movie" do
     expect(page).to have_text("126 min")
     expect(page).to have_xpath("//img[contains(@src, 'ironman.png')]")
     expect(page).to have_link("0 Reviews")
+    expect(page).to have_link("Edit")
+    expect(page).to have_link("Delete")
+    expect(page).to have_link("Write Review")
   end
 end
