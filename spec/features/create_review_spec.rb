@@ -9,6 +9,7 @@ describe "Creating a new review" do
     click_link "Write Review"
 
     expect(current_path).to eq(new_movie_review_path(movie))
+    expect(page).to have_selector("input[type=submit][value='Post Review']")
 
     fill_in "Name", with: "Roger Ebert"
     choose("review_stars_3")
