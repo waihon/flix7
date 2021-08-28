@@ -44,11 +44,25 @@ describe "Viewing the list of movies" do
       director: "Sam Raimi",
       duration: "121 min",
       image_file_name: "spiderman.png")
+
+    movie1.reviews.create(review_attributes(stars: 2))
+    movie1.reviews.create(review_attributes(stars: 3))
+    movie1.reviews.create(review_attributes(stars: 4))
+    movie1.reviews.create(review_attributes(stars: 4))
+    movie1.reviews.create(review_attributes(stars: 5))
+
+    movie3.reviews.create(review_attributes(stars: 4))
+    movie3.reviews.create(review_attributes(stars: 4))
+    movie3.reviews.create(review_attributes(stars: 5))
+
     visit movies_url
 
     expect(page).to have_text(movie1.title)
+    expect(page).to have_text("3.6 stars")
     expect(page).to have_text(movie2.title)
+    expect(page).to have_text("No reviews")
     expect(page).to have_text(movie3.title)
+    expect(page).to have_text("4.3 stars")
 
     expect(page).to have_text(
       %{
