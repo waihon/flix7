@@ -14,5 +14,6 @@ describe "Viewing a list of reviews" do
     expect(page).to have_text(review1.name)
     expect(page).to have_text(review2.name)
     expect(page).not_to have_text(review3.name)
+    expect(page).to have_link("Write Review")
   end
 end
