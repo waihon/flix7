@@ -360,6 +360,34 @@ ul.reviews {
   }
 }
 
+table.reviews {
+  font-size: 1.25em;
+
+	tr {
+		border-bottom: 1px solid $light-gray;
+	}
+
+	th {
+		padding-top: 1rem;
+		padding-bottom: 0.35rem;
+		padding-right: 1rem;
+
+		span {
+      &.date {
+        font-size: .8em;
+				font-weight: 400;
+				margin-left: 0.3rem;
+        color: $secondary-text-color;
+      }
+		}
+	}
+
+	.button {
+		@extend .btn, .btn-sm, .btn-outline-danger;
+		margin-left: 0.5rem;
+	}
+}
+
 // Footer
 
 footer {
