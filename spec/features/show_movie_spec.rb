@@ -16,6 +16,6 @@ describe "Viewing an individual movie" do
     expect(page).to have_link("0 Reviews")
     expect(page).to have_link("Edit")
     expect(page).to have_link("Delete")
-    expect(page).to have_link("Write Review")
+    expect(page).to have_selector("input[type=submit][value='Post Review']")
   end
 end
