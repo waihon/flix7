@@ -171,4 +171,20 @@ describe "A movie" do
       movie.destroy
     }.to change(Review, :count).by(-1)
   end
+
+  it "calculates the average number of review stars" do
+    movie = Movie.create(movie_attributes)
+
+    movie.reviews.create(review_attributes(stars: 1))
+    movie.reviews.create(review_attributes(stars: 3))
+    movie.reviews.create(review_attributes(stars: 5))
+
+    expect(movie.average_stars).to eq(3)
+  end
+
+  it "calcualtes the average stars as 0 if the movie doesn't have any reviews" do
+    movie = Movie.create(movie_attributes)
+
+    expect(movie.average_stars).to eq(0)
+  end
 end
