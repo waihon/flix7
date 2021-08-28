@@ -14,5 +14,5 @@
   <%= f.label :comment %>
   <%= f.text_area :comment, placeholder: "What did y ou think?", rows: 5, cols: 40 %>
 
-  <%= f.submit "Post Review" %>
+  <%= f.submit review.new_record? ? "Post Review" : "Update Review" %>
 <% end %>
