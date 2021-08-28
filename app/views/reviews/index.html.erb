@@ -14,6 +14,10 @@
           </p>
         </p>
       </th>
+      <td>
+        <%= link_to "Delete", movie_review_path(@movie, review), class: "button",
+                    method: :delete, data: { confirm: "Are you sure" } %>
+      </td>
     </tr>
   <% end %>
 </table>
