@@ -382,7 +382,12 @@ table.reviews {
 		}
 	}
 
-	.button {
+	.edit-button {
+		@extend .btn, .btn-sm, .btn-outline-primary;
+		margin-left: 0.5rem;
+	}
+
+	.delete-button {
 		@extend .btn, .btn-sm, .btn-outline-danger;
 		margin-left: 0.5rem;
 	}
