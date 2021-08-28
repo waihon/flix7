@@ -15,7 +15,8 @@
         </p>
       </th>
       <td>
-        <%= link_to "Delete", movie_review_path(@movie, review), class: "button",
+        <%= link_to "Edit", edit_movie_review_path(@movie, review), class: "edit-button" %>
+        <%= link_to "Delete", movie_review_path(@movie, review), class: "delete-button",
                     method: :delete, data: { confirm: "Are you sure" } %>
       </td>
     </tr>
