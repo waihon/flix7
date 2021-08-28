@@ -1,19 +1,22 @@
 <h1>Review for <%= link_to @movie.title, @movie %></h1>
-<ul class="reviews">
+<table class="reviews">
   <% @reviews.each do |review| %>
-    <li>
-      <%= render "shared/stars", percent: review.stars_as_percent %>
-      <p>
-        <%= review.name %>
-        <span class="date">
-          <%= time_ago_in_words(review.created_at) %> ago
-        </span>
+    <tr id=<%= "review-#{review.id}" %>>
+      <th>
+        <%= render "shared/stars", percent: review.stars_as_percent %>
         <p>
-          <%= review.comment %>
+          <%= review.name %>
+          <span class="date">
+            <%= time_ago_in_words(review.created_at) %> ago
+          </span>
+          <p>
+            <%= review.comment %>
+          </p>
         </p>
-    </li>
+      </th>
+    </tr>
   <% end %>
-</ul>
+</table>
 <section class="movie-details">
   <div class="details">
     <%= link_to "Write Review", new_movie_review_path(@movie),
