@@ -58,11 +58,22 @@ describe "Viewing the list of movies" do
     visit movies_url
 
     expect(page).to have_text(movie1.title)
-    expect(page).to have_text("3.6 stars")
     expect(page).to have_text(movie2.title)
-    expect(page).to have_text("No reviews")
     expect(page).to have_text(movie3.title)
-    expect(page).to have_text("4.3 stars")
+
+    # Partially filled-in stars
+    within find("#movie-#{movie1.id}") do
+      front_stars_style = page.find('div.front-stars')['style']
+      expect(front_stars_style).to eq("width: 72.0%")
+    end
+    within find("#movie-#{movie2.id}") do
+      front_stars_style = page.find('div.front-stars')['style']
+      expect(front_stars_style).to eq("width: 0.0%")
+    end
+    within find("#movie-#{movie3.id}") do
+      front_stars_style = page.find('div.front-stars')['style']
+      expect(front_stars_style).to eq("width: 86.666666666666666%")
+    end
 
     expect(page).to have_text(
       %{
