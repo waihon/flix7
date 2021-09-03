@@ -35,6 +35,15 @@ describe "A user" do
     end
   end
 
+  it "rejects email address without FQDN" do
+    emails = %w[user@example first.last@example]
+    emails.each do |email|
+      user = User.new(email: email)
+      user.valid?
+      expect(user.errors[:email].any?).to eq(true)
+    end
+  end
+
   it "requires a unique, case insensitive email address" do
     user1 = User.create!(user_attributes)
 
