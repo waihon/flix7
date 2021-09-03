@@ -29,7 +29,7 @@ describe "A user" do
   it "rejects improperly formatted email address" do
     emails = %w[@ user@ @example.com]
     emails.each do |email|
-      user = User.new(email)
+      user = User.new(email: email)
       user.valid?
       expect(user.errors[:email].any?).to eq(true) 
     end
