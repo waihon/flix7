@@ -4,4 +4,5 @@ class User < ApplicationRecord
   validates :email, format: { with: /\S+@\S+/ },
                     uniqueness: { case_sensitive: false }
   has_secure_password
+  validates :password, length: { minimum: 10, allow_blank: true }
 end
