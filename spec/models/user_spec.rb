@@ -58,7 +58,7 @@ describe "A user" do
   end
 
   it "requires a password confirmation when a password is present" do
-    user = User.new(password: "secret", password_confirmation: "nomatch")
+    user = User.new(password: "secretpassword", password_confirmation: "nomatch")
 
     user.valid?
 
@@ -66,7 +66,7 @@ describe "A user" do
   end
 
   it "requires a password and matching password confirmation when creating" do
-    user = User.create!(user_attributes(password: "secret", password_confirmation: "secret"))
+    user = User.create!(user_attributes(password: "secretpassword", password_confirmation: "secretpassword"))
 
     expect(user.valid?).to eq(true)
   end
@@ -80,9 +80,27 @@ describe "A user" do
   end
 
   it "automatically encrypts the password into the password_digest attribute" do
-    user = User.new(password: "secret")
+    user = User.new(password: "secretpassword")
 
     expect(user.password_digest.present?).to eq(true)
     
+  end
+
+  it "allows password with a minimum length of 10" do
+    passwords = ["a" * 10, "b" * 15, "c" * 20]
+    passwords.each do |password|
+      user = User.new(password: password)
+      user.valid?
+      expect(user.errors[:password].any?).to eq(false)
+    end
+  end
+
+  it "rejects password with a length less than 10" do
+    passwords = ["a" * 1, "b" * 5, "c" * 9]
+    passwords.each do |password|
+      user = User.new(password: password)
+      user.valid?
+      expect(user.errors[:password].first).to match(/is too short/)
+    end
   end
 end
