@@ -5,4 +5,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 10, allow_blank: true }
+
+  def gravatar_id
+    Digest::MD5::hexdigest(email.downcase)
+  end
 end
