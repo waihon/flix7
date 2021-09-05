@@ -112,4 +112,10 @@ describe "A user" do
       expect(user.errors[:password].first).to match(/is too short/)
     end
   end
+
+  it "has a gravatar ID" do
+    user = User.new(user_attributes)
+
+    expect(user.gravatar_id).to eq("b58996c504c5638798eb6b511e6f49af")
+  end
 end
