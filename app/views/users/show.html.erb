@@ -6,4 +6,8 @@
   <p>
     <%= @user.created_at.strftime("%B %Y") %>
   </p>
+  <div class="actions">
+    <%= link_to "Edit Account", edit_user_path(@user),
+                class: "button edit" %>
+  </div>
 </section>
