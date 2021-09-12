@@ -10,6 +10,7 @@ describe "Creating a new user" do
 
     fill_in "Name", with: "Example User"
     fill_in "Email", with: "user@example.com"
+    fill_in "Username", with: "user180"
     fill_in "Password", with: "secretpassword"
     fill_in "Confirm Password", with: "secretpassword"
 
