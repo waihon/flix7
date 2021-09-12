@@ -5,6 +5,13 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 10, allow_blank: true }
+  validates :username, presence: true
+  validates :username, format: {
+    with: /\A[A-Z0-9]+\z/i,
+    message: "must contains alphanumeric characters only",
+    allow_blank: true
+  }
+  validates :username, uniqueness: { case_sensitive: false }
 
   def gravatar_id
     Digest::MD5::hexdigest(email.downcase)
