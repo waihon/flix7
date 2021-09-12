@@ -118,4 +118,47 @@ describe "A user" do
 
     expect(user.gravatar_id).to eq("b58996c504c5638798eb6b511e6f49af")
   end
+
+  it "requires a username" do
+    user = User.new(username: "")
+
+    user.valid?
+
+    expect(user.errors[:username].any?).to eq(true)
+  end
+
+  it "accepts a username with letters and numbers" do
+    usernames = %w[username 123456 user168 168user user168name 16user8]
+    usernames.each do |username|
+      user = User.new(username: username)
+      user.valid?
+      expect(user.errors[:username].any?).to eq(false)
+    end
+  end
+
+  it "rejects a username with any non-word character" do
+    usernames = ["@~!", "#$%", "^&*", "()-", "username+", "_username", "user.name"]
+    usernames.each do |username|
+      user = User.new(username: username)
+      user.valid?
+      expect(user.errors[:username].any?).to eq(true)
+    end
+  end
+
+  it "rejects username with spaces" do
+    usernames = ["user name", " username", "username ", "user   name"]
+    usernames.each do |username|
+      user = User.new(username: username)
+      user.valid?
+      expect(user.errors[:username].any?).to eq(true)
+    end
+  end
+
+  it "requires a unique, case insensitive username" do
+    user1 = User.create!(user_attributes)
+
+    user2 = User.new(username: user1.username.upcase)
+    user2.valid?
+    expect(user2.errors[:username].first).to eq("has already been taken")
+  end
 end
