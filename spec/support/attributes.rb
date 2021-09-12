@@ -24,6 +24,7 @@ def user_attributes(overrides = {})
     name: "Example User",
     email: "user@example.com",
     password: "secretpassword",
-    password_confirmation: "secretpassword"
+    password_confirmation: "secretpassword",
+    username: "example180"
   }.merge(overrides)
 end
