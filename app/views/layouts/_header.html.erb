@@ -8,6 +8,9 @@
     </ul>
     <ul class="right">
       <li>
+        <%= session[:user_id] %>
+      </li>
+      <li>
         <%= link_to "Sign In", signin_path, class: "button" %>
       </li>
       <li>
