@@ -8,7 +8,7 @@
     </ul>
     <ul class="right">
       <li>
-        <%= session[:user_id] %>
+        <%= User.find(session[:user_id]).name %>
       </li>
       <li>
         <%= link_to "Sign In", signin_path, class: "button" %>
