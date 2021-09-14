@@ -5,6 +5,7 @@ describe "Deleting a user" do
     user = User.create!(user_attributes)
 
     sign_in(user)
+
     visit user_path(user)
 
     click_link "Delete Account"
