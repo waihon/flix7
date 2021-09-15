@@ -113,4 +113,20 @@ describe "Signing in" do
     expect(page).not_to have_link("Account Settings")
     expect(page).not_to have_link("Sign Out")
   end
+
+  it "redirects to the intented URL" do
+    user = User.create!(user_attributes)
+
+    visit users_url
+
+    expect(current_path).to eq(new_session_path)
+
+    fill_in "Email or username", with: user.email
+    fill_in "Password", with: user.password
+
+    click_button "Sign In"
+
+    expect(current_path).to eq(users_path)
+    expect(page).to have_text("Welcome back, #{user.name}!")
+  end
 end
