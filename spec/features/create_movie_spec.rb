@@ -1,7 +1,13 @@
 require 'rails_helper'
 
 describe "Creating a new movie" do
+  before do
+    @admin = User.create!(user_attributes(admin: true))
+  end
+
   it "saves the movie and shows the new movie's details" do
+    sign_in(@admin)
+
     visit movies_url
     click_link "Add New Movie"
 
@@ -28,6 +34,8 @@ describe "Creating a new movie" do
   end
 
   it "does not save the movie if it's invalid" do
+    sign_in(@admin)
+
     visit new_movie_url
 
     expect {
