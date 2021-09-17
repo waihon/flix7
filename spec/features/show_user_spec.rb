@@ -14,7 +14,6 @@ describe "Viewing a user's profile page" do
     expect(page.find("#profile-image")["src"]).to have_content(user.gravatar_id)
 
     expect(page).to have_link("Edit Account")
-    expect(page).to have_link("Delete Account")
   end
 
   it "doesn't show account management links if not the same as signed in user" do
@@ -28,6 +27,5 @@ describe "Viewing a user's profile page" do
     visit user_url(user2)
 
     expect(page).not_to have_link("Edit Account")
-    expect(page).not_to have_link("Delete Account")
   end
 end
