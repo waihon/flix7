@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :reviews, dependent: :destroy
+
   validates :name, presence: true
   validates :email, presence: true
   validates :email, email: { mode: :strict, allow_blank: true }
