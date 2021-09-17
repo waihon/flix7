@@ -9,6 +9,14 @@ describe "A review" do
     expect(review.movie).to eq(movie)
   end
 
+  it "belongs to a user" do
+    user = User.create(user_attributes)
+
+    review = user.reviews.new(review_attributes)
+
+    expect(review.user).to eq(user)
+  end
+
   it "with example attributes is valid" do
     movie = Movie.create(movie_attributes)
 
