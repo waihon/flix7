@@ -164,8 +164,9 @@ describe "A movie" do
 
   it "deletes associated reviews" do
     movie = Movie.create(movie_attributes)
+    user = User.create(user_attributes)
 
-    movie.reviews.create(review_attributes)
+    movie.reviews.create(review_attributes(user: user))
 
     expect {
       movie.destroy
@@ -174,15 +175,16 @@ describe "A movie" do
 
   it "calculates the average number of review stars" do
     movie = Movie.create(movie_attributes)
+    user = User.create(user_attributes)
 
-    movie.reviews.create(review_attributes(stars: 1))
-    movie.reviews.create(review_attributes(stars: 2))
-    movie.reviews.create(review_attributes(stars: 3))
-    movie.reviews.create(review_attributes(stars: 3))
-    movie.reviews.create(review_attributes(stars: 3))
-    movie.reviews.create(review_attributes(stars: 4))
-    movie.reviews.create(review_attributes(stars: 4))
-    movie.reviews.create(review_attributes(stars: 5))
+    movie.reviews.create(review_attributes(stars: 1, user: user))
+    movie.reviews.create(review_attributes(stars: 2, user: user))
+    movie.reviews.create(review_attributes(stars: 3, user: user))
+    movie.reviews.create(review_attributes(stars: 3, user: user))
+    movie.reviews.create(review_attributes(stars: 3, user: user))
+    movie.reviews.create(review_attributes(stars: 4, user: user))
+    movie.reviews.create(review_attributes(stars: 4, user: user))
+    movie.reviews.create(review_attributes(stars: 5, user: user))
     expect(movie.average_stars).to eq(3.125)
     expect(movie.average_stars_as_percent).to eq(62.50)
   end
