@@ -14,8 +14,6 @@ describe "Viewing an individual movie" do
     expect(page).to have_text("126 min")
     expect(page).to have_xpath("//img[contains(@src, 'ironman.png')]")
     expect(page).to have_link("0 Reviews")
-    expect(page).to have_link("Edit")
-    expect(page).to have_link("Delete")
     expect(page).to have_selector("input[type=submit][value='Post Review']")
     front_stars_style = page.find('div.front-stars')['style']
     expect(front_stars_style).to eq("width: 0.0%")
@@ -36,5 +34,46 @@ describe "Viewing an individual movie" do
     expect(page).to have_link("7 Reviews")
     front_stars_style = page.find('div.front-stars')['style']
     expect(front_stars_style).to eq("width: 74.285714285714286%")
+  end
+
+  it "doesn't show Edit and Delete links when not signed in" do
+    movie = Movie.create!(movie_attributes)
+
+    visit movie_url(movie)
+
+    expect(current_path).to eq(movie_path(movie))
+
+    expect(page).not_to have_link("Edit")
+    expect(page).not_to have_link("Delete")
+  end
+
+  it "doesn't show Edit and Delete links when not signed in as an admin user" do
+    user = User.create!(user_attributes(admin: false))
+
+    sign_in(user)
+
+    movie = Movie.create!(movie_attributes)
+
+    visit movie_url(movie)
+
+    expect(current_path).to eq(movie_path(movie))
+
+    expect(page).not_to have_link("Edit")
+    expect(page).not_to have_link("Delete")
+  end
+
+  it "show Edit and Delete links when signed in as an admin user" do
+    admin = User.create!(user_attributes(admin: true))
+
+    sign_in(admin)
+
+    movie = Movie.create!(movie_attributes)
+
+    visit movie_url(movie)
+
+    expect(current_path).to eq(movie_path(movie))
+
+    expect(page).to have_link("Edit")
+    expect(page).to have_link("Delete")
   end
 end
