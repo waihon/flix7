@@ -2,7 +2,6 @@ class Review < ApplicationRecord
   belongs_to :movie
   belongs_to :user
 
-  validates :name, presence: true
   validates :comment, presence: true
   validates :comment, length: { minimum: 4 }, allow_blank: true
   STARS = [1, 2, 3, 4, 5]
