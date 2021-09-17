@@ -113,4 +113,33 @@ describe "Viewing the list of movies" do
 
     expect(page).not_to have_text(movie.title)
   end
+
+  it "doesn't show Add New Movie link when not signed in" do
+    visit movies_url
+
+    expect(current_path).to eq(movies_path)
+    expect(page).not_to have_link("Add New Movie")
+  end
+
+  it "doesn't show Add New Movie link when not signed in as an admin user" do
+    user = User.create!(user_attributes(admin: false))
+
+    sign_in(user)
+
+    visit movies_url
+
+    expect(current_path).to eq(movies_path)
+    expect(page).not_to have_link("Add New Movie")
+  end
+
+  it "shows Add New Movie link when signed in as an admin user" do
+    admin = User.create!(user_attributes(admin: true))
+
+    sign_in(admin)
+
+    visit movies_url
+
+    expect(current_path).to eq(movies_path)
+    expect(page).to have_link("Add New Movie")
+  end
 end
