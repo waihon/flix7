@@ -17,9 +17,12 @@ describe "Viewing a list of reviews" do
     visit movie_reviews_url(movie1)
 
     expect(page).to have_text(review1.comment)
+    expect(page).to have_text(@user.name)
+    within find("#review-#{review1.id}") do
+      expect(page.find("#profile-image")["src"]).to have_content(@user.gravatar_id)
+    end
     expect(page).to have_text(review2.comment)
     expect(page).not_to have_text(review3.comment)
-    expect(page).to have_text(@user.name)
     expect(page).to have_link("Write Review")
   end
 end
