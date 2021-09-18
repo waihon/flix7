@@ -13,7 +13,6 @@ describe "Creating a new review" do
 
     expect(page).to have_selector("input[type=submit][value='Post Review']")
 
-    fill_in "Name", with: "Roger Ebert"
     choose("review_stars_3")
     fill_in "Comment", with: "I laughed, I cried, I spilled my popcorn!"
 
@@ -22,6 +21,7 @@ describe "Creating a new review" do
     expect(current_path).to eq(movie_reviews_path(movie))
 
     expect(page).to have_text("Thanks for your review!")
+    expect(page).to have_text(@user.name)
   end
 
   it "saves the review from review new page" do
@@ -33,7 +33,6 @@ describe "Creating a new review" do
 
     expect(current_path).to eq(new_movie_review_path(movie))
 
-    fill_in "Name", with: "Roger Ebert"
     choose("review_stars_3")
     fill_in "Comment", with: "I laughed, I cried, I spilled my popcorn!"
 
@@ -42,6 +41,7 @@ describe "Creating a new review" do
     expect(current_path).to eq(movie_reviews_path(movie))
 
     expect(page).to have_text("Thanks for your review!")
+    expect(page).to have_text(@user.name)
   end
 
   it "does not save the review if it's invalid" do
