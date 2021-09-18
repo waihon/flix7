@@ -29,9 +29,11 @@
         <td><%= total_gross(@movie) %></td>
       </tr>
     </table>
-    <hr>
-    <h2>Review:</h2>
-    <%= render "reviews/form", movie: @movie, review: @review %>
+    <% if current_user %>
+      <hr>
+      <h2>Review:</h2>
+      <%= render "reviews/form", movie: @movie, review: @review %>
+    <% end %>
   </div>
 </section>
 <% if current_user_admin? %>
