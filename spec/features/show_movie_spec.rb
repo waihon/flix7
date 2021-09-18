@@ -19,61 +19,68 @@ describe "Viewing an individual movie" do
     expect(front_stars_style).to eq("width: 0.0%")
   end
 
-  it "shows the average stars in partially-filled stars" do
-    movie = Movie.create(movie_attributes(total_gross: 300_000_000))
-    review1 = movie.reviews.create(review_attributes(stars: 5))
-    review2 = movie.reviews.create(review_attributes(stars: 4))
-    review3 = movie.reviews.create(review_attributes(stars: 3))
-    review4 = movie.reviews.create(review_attributes(stars: 4))
-    review5 = movie.reviews.create(review_attributes(stars: 3))
-    review6 = movie.reviews.create(review_attributes(stars: 3))
-    review7 = movie.reviews.create(review_attributes(stars: 4))
+  context "when not signed in" do
+    it "doesn't show Edit and Delete links" do
+      movie = Movie.create!(movie_attributes)
 
-    visit "http://example.com/movies/#{movie.id}"
+      visit movie_url(movie)
 
-    expect(page).to have_link("7 Reviews")
-    front_stars_style = page.find('div.front-stars')['style']
-    expect(front_stars_style).to eq("width: 74.285714285714286%")
+      expect(current_path).to eq(movie_path(movie))
+
+      expect(page).not_to have_link("Edit")
+      expect(page).not_to have_link("Delete")
+    end
   end
 
-  it "doesn't show Edit and Delete links when not signed in" do
-    movie = Movie.create!(movie_attributes)
+  context "when signed in but not as an admin user" do
+    before do
+      @user = User.create(user_attributes(admin: false))
+    end
 
-    visit movie_url(movie)
+    it "shows the average stars in partially-filled stars" do
+      movie = Movie.create(movie_attributes(total_gross: 300_000_000))
+      review1 = movie.reviews.create(review_attributes(stars: 5, user: @user))
+      review2 = movie.reviews.create(review_attributes(stars: 4, user: @user))
+      review3 = movie.reviews.create(review_attributes(stars: 3, user: @user))
+      review4 = movie.reviews.create(review_attributes(stars: 4, user: @user))
+      review5 = movie.reviews.create(review_attributes(stars: 3, user: @user))
+      review6 = movie.reviews.create(review_attributes(stars: 3, user: @user))
+      review7 = movie.reviews.create(review_attributes(stars: 4, user: @user))
 
-    expect(current_path).to eq(movie_path(movie))
+      visit "http://example.com/movies/#{movie.id}"
 
-    expect(page).not_to have_link("Edit")
-    expect(page).not_to have_link("Delete")
+      expect(page).to have_link("7 Reviews")
+      front_stars_style = page.find('div.front-stars')['style']
+      expect(front_stars_style).to eq("width: 74.285714285714286%")
+    end
+
+    it "doesn't show Edit and Delete links" do
+      movie = Movie.create!(movie_attributes)
+
+      visit movie_url(movie)
+
+      expect(current_path).to eq(movie_path(movie))
+
+      expect(page).not_to have_link("Edit")
+      expect(page).not_to have_link("Delete")
+    end
   end
 
-  it "doesn't show Edit and Delete links when not signed in as an admin user" do
-    user = User.create!(user_attributes(admin: false))
+  context "when signed in as an admin user" do
+    before do
+      @admin = User.create!(user_attributes(admin: true))
+      sign_in(@admin)
+    end
 
-    sign_in(user)
+    it "show Edit and Delete links when signed in as an admin user" do
+      movie = Movie.create!(movie_attributes)
 
-    movie = Movie.create!(movie_attributes)
+      visit movie_url(movie)
 
-    visit movie_url(movie)
+      expect(current_path).to eq(movie_path(movie))
 
-    expect(current_path).to eq(movie_path(movie))
-
-    expect(page).not_to have_link("Edit")
-    expect(page).not_to have_link("Delete")
-  end
-
-  it "show Edit and Delete links when signed in as an admin user" do
-    admin = User.create!(user_attributes(admin: true))
-
-    sign_in(admin)
-
-    movie = Movie.create!(movie_attributes)
-
-    visit movie_url(movie)
-
-    expect(current_path).to eq(movie_path(movie))
-
-    expect(page).to have_link("Edit")
-    expect(page).to have_link("Delete")
+      expect(page).to have_link("Edit")
+      expect(page).to have_link("Delete")
+    end
   end
 end
