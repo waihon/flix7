@@ -14,7 +14,6 @@ describe "Viewing an individual movie" do
     expect(page).to have_text("126 min")
     expect(page).to have_xpath("//img[contains(@src, 'ironman.png')]")
     expect(page).to have_link("0 Reviews")
-    expect(page).to have_selector("input[type=submit][value='Post Review']")
     front_stars_style = page.find('div.front-stars')['style']
     expect(front_stars_style).to eq("width: 0.0%")
   end
@@ -30,11 +29,21 @@ describe "Viewing an individual movie" do
       expect(page).not_to have_link("Edit")
       expect(page).not_to have_link("Delete")
     end
+
+    it "doesn't show Post Review form" do
+      movie = Movie.create(movie_attributes)
+
+      visit movie_url(movie)
+
+      expect(page).not_to have_text("Review:")
+      expect(page).not_to have_selector("input[type=submit][value='Post Review']")
+    end
   end
 
   context "when signed in but not as an admin user" do
     before do
       @user = User.create(user_attributes(admin: false))
+      sign_in(@user)
     end
 
     it "shows the average stars in partially-filled stars" do
@@ -63,6 +72,17 @@ describe "Viewing an individual movie" do
 
       expect(page).not_to have_link("Edit")
       expect(page).not_to have_link("Delete")
+    end
+
+    it "show Post Review form" do
+      movie = Movie.create!(movie_attributes)
+
+      visit movie_url(movie)
+
+      expect(current_path).to eq(movie_path(movie))
+
+      expect(page).to have_text("Review:")
+      expect(page).to have_selector("input[type=submit][value='Post Review']")
     end
   end
 
