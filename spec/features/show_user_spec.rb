@@ -6,7 +6,7 @@ describe "Viewing a user's profile page" do
       @user = User.create!(user_attributes)
       sign_in(@user)
     end
-    
+
     it "shows the user's details" do
       visit user_url(@user)
 
@@ -25,6 +25,32 @@ describe "Viewing a user's profile page" do
       visit user_url(user2)
 
       expect(page).not_to have_link("Edit Account")
+    end
+
+    it "show all the reviews this user has written" do
+      movie1 = Movie.create!(movie_attributes(title: "Avengers: Endgame"))
+      movie1.reviews.create!(review_attributes(comment: "Loved!", user: @user))
+      movie2 = Movie.create!(movie_attributes(title: "Captain Marvel"))
+      movie2.reviews.create!(review_attributes(comment: "Liked!", user: @user))
+      movie3 = Movie.create!(movie_attributes(title: "Black Panther"))
+      movie3.reviews.create!(review_attributes(comment: "Cool!", user: @user))
+
+      visit user_url(@user)
+
+      expect(page).to have_text("Reviews")
+      expect(page).to have_text("Loved!")
+      expect(page).to have_text("Liked!")
+      expect(page).to have_text("Cool!")
+    end
+
+    it "doesn't show the Reviews section if the user hasn't written any reviews" do
+      movie1 = Movie.create!(movie_attributes(title: "Avengers: Endgame"))
+      movie2 = Movie.create!(movie_attributes(title: "Captain Marvel"))
+      movie3 = Movie.create!(movie_attributes(title: "Black Panther"))
+
+      visit user_url(@user)
+
+      expect(page).not_to have_text("Reviews")
     end
   end
 end
