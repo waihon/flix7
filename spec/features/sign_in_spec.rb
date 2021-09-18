@@ -119,7 +119,7 @@ describe "Signing in" do
 
     visit users_url
 
-    expect(current_path).to eq(new_session_path)
+    expect(current_path).to eq(signin_path)
 
     fill_in "Email or username", with: user.email
     fill_in "Password", with: user.password
