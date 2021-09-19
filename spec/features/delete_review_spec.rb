@@ -30,4 +30,24 @@ describe "Deleting a review" do
       expect(page).to have_text("Review successfully deleted!")
     end
   end
+
+  context "from user profile page" do
+    it "destroys the review and shows the user reviews listing without the deleted review" do
+      visit user_url(@user)
+
+      expect(page).to have_text(@review1.comment)
+      expect(page).to have_text(@review2.comment)
+      expect(page).to have_text(@review3.comment)
+
+      within find("#review-#{@review2.id}") do
+        click_link "Delete"
+      end
+
+      expect(current_path).to eq(user_path(@user))
+      expect(page).to have_text(@review1.comment)
+      expect(page).not_to have_text(@review2.comment)
+      expect(page).to have_text(@review3.comment)
+      expect(page).to have_text("Review successfully deleted!")
+    end
+  end
 end
