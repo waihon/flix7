@@ -29,11 +29,11 @@ describe "Viewing a user's profile page" do
 
     it "show all the reviews this user has written" do
       movie1 = Movie.create!(movie_attributes(title: "Avengers: Endgame"))
-      movie1.reviews.create!(review_attributes(comment: "Loved!", user: @user))
+      review1 = movie1.reviews.create!(review_attributes(comment: "Loved!", user: @user))
       movie2 = Movie.create!(movie_attributes(title: "Captain Marvel"))
-      movie2.reviews.create!(review_attributes(comment: "Liked!", user: @user))
+      review2 = movie2.reviews.create!(review_attributes(comment: "Liked!", user: @user))
       movie3 = Movie.create!(movie_attributes(title: "Black Panther"))
-      movie3.reviews.create!(review_attributes(comment: "Cool!", user: @user))
+      review3 = movie3.reviews.create!(review_attributes(comment: "Cool!", user: @user))
 
       visit user_url(@user)
 
@@ -41,6 +41,19 @@ describe "Viewing a user's profile page" do
       expect(page).to have_text("Loved!")
       expect(page).to have_text("Liked!")
       expect(page).to have_text("Cool!")
+
+      within find("#review-#{review1.id}") do
+        expect(page).to have_link("Edit")
+        expect(page).to have_link("Delete")
+      end
+      within find("#review-#{review2.id}") do
+        expect(page).to have_link("Edit")
+        expect(page).to have_link("Delete")
+      end
+      within find("#review-#{review3.id}") do
+        expect(page).to have_link("Edit")
+        expect(page).to have_link("Delete")
+      end
     end
 
     it "doesn't show the Reviews section if the user hasn't written any reviews" do
