@@ -36,9 +36,10 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    session[:referer_url] ||= request.referer
     @review = Review.find(params[:id])
     @review.destroy
-    redirect_to movie_reviews_url(@movie), notice: "Review successfully deleted!"
+    redirect_to session.delete(:referer_url), notice: "Review successfully deleted!"
   end
 
 private
