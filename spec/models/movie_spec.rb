@@ -196,15 +196,15 @@ describe "A movie" do
     expect(movie.average_stars_as_percent).to eq(0.00)
   end
 
-  it "has fans" do
+  it "has favorites" do
     movie = Movie.new(movie_attributes)
-    fan1 = User.new(user_attributes(email: "larry@example.com"))
-    fan2 = User.new(user_attributes(email: "moe@example.com"))
+    user1 = User.new(user_attributes(email: "larry@example.com"))
+    user2 = User.new(user_attributes(email: "moe@example.com"))
 
-    movie.favorites.new(user: fan1)
-    movie.favorites.new(user: fan2)
+    favorite1 = movie.favorites.new(user: user1)
+    favorite2 = movie.favorites.new(user: user2)
 
-    expect(movie.fans).to include(fan1)
-    expect(movie.fans).to include(fan2)
+    expect(movie.favorites).to include(favorite1)
+    expect(movie.favorites).to include(favorite2)
   end
 end
