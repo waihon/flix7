@@ -20,6 +20,9 @@ describe "Viewing an individual movie" do
     expect(page).to have_link("0 Reviews")
     front_stars_style = page.find('div.front-stars')['style']
     expect(front_stars_style).to eq("width: 0.0%")
+
+    expect(page).not_to have_text("Review:")
+    expect(page).not_to have_text("Fans")
   end
 
   it "shows the average stars in partially-filled stars" do
@@ -37,6 +40,28 @@ describe "Viewing an individual movie" do
     expect(page).to have_link("7 Reviews")
     front_stars_style = page.find('div.front-stars')['style']
     expect(front_stars_style).to eq("width: 74.285714285714286%")
+  end
+
+  it "shows the fans" do
+    movie1 = Movie.create(movie_attributes(title: "Iron Man"))
+    movie2 = Movie.create(movie_attributes(title: "Superman"))
+
+    fan1 = User.create!(user_attributes(name: "Fan One",
+      username: "fan1", email: "fan1@example.com"))
+    fan2 = User.create!(user_attributes(name: "Fan Two",
+      username: "fan2", email: "fan2@example.com"))
+    fan3 = User.create!(user_attributes(name: "Fan Three",
+      username: "fan3", email: "fan3@example.com"))
+
+    movie1.favorites.create(user: fan1)
+    movie1.favorites.create(user: fan3)
+    movie2.favorites.create(user: fan2)
+
+    visit movie_url(movie1)
+    expect(page).to have_text("Fans")
+    expect(page).to have_link(fan1.name)
+    expect(page).to have_link(fan3.name)
+    expect(page).not_to have_link(fan2.name)
   end
 
   context "when not signed in" do
