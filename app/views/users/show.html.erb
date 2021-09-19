@@ -20,7 +20,7 @@
   <% if @reviews.present? %>
     <h3>Reviews</h3>
     <% @reviews.each do |review| %>
-      <div class="review">
+      <div class="review" id=<%= "review-#{review.id}" %>>
         <div class="details">
           <span class="title">
             <%= link_to review.movie.title, review.movie %>
@@ -31,6 +31,11 @@
           </span>
           <p>
             <%= review.comment %>
+            <% if current_user?(review.user) %>
+                <%= link_to "Edit", edit_movie_review_path(review.movie, review), class: "edit-button" %>
+                <%= link_to "Delete", movie_review_path(review.movie, review), class: "delete-button",
+                            method: :delete, data: { confirm: "Are you sure" } %>
+            <% end %>
           </p>
         </div>
       </div>
