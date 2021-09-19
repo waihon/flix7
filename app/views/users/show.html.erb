@@ -25,7 +25,7 @@
           <span class="title">
             <%= link_to review.movie.title, review.movie %>
           </span>
-          <%= render "shared/stars", percent: review.movie.average_stars_as_percent %>
+          <%= render "shared/stars", percent: review.stars_as_percent %>
           <span class="date">
             <%= time_ago_in_words(review.created_at) %> ago
           </span>
