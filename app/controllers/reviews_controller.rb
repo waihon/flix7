@@ -22,13 +22,14 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    session[:referer_url] ||= request.referer
     @review = Review.find(params[:id])
   end
 
   def update
     @review = Review.find(params[:id])
     if @review.update(review_params)
-      redirect_to movie_reviews_url(@movie), notice: "Review successfully updated!"
+      redirect_to session.delete(:referer_url), notice: "Review successfully updated!"
     else
       render :edit
     end
