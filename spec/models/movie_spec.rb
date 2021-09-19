@@ -219,4 +219,27 @@ describe "A movie" do
     expect(movie.fans).to include(fan1)
     expect(movie.fans).to include(fan2)
   end
+
+  it "has critics" do
+    user1 = User.new(user_attributes(name: "User One",
+      username: "user1", email: "user1@example.com"))
+    user2 = User.new(user_attributes(name: "User Two",
+      username: "user2", email: "user2@example.com"))
+
+    movie1 = Movie.new(movie_attributes(title: "Iron Man"))
+    movie2 = Movie.new(movie_attributes(title: "Superman"))
+
+    review1 = movie1.reviews.new(stars: 5, comment: "Two thumbs up!")
+    review1.user = user1
+    review1.save!
+
+    review2 = movie2.reviews.new(stars: 3, comment: "Cool!")
+    review2.user = user2
+    review2.save!
+
+    expect(movie1.critics).to include(user1)
+    expect(movie1.critics).not_to include(user2)
+    expect(movie2.critics).to include(user2)
+    expect(movie2.critics).not_to include(user1)
+  end
 end
