@@ -18,9 +18,13 @@
         </p>
       </th>
       <td>
-        <%= link_to "Edit", edit_movie_review_path(@movie, review), class: "edit-button" %>
-        <%= link_to "Delete", movie_review_path(@movie, review), class: "delete-button",
-                    method: :delete, data: { confirm: "Are you sure" } %>
+        <% if current_user?(review.user) %>
+          <%= link_to "Edit", edit_movie_review_path(@movie, review), class: "edit-button" %>
+          <%= link_to "Delete", movie_review_path(@movie, review), class: "delete-button",
+                      method: :delete, data: { confirm: "Are you sure" } %>
+        <% else %>
+          &nbsp;
+        <% end %>
       </td>
     </tr>
   <% end %>
