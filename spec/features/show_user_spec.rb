@@ -82,5 +82,27 @@ describe "Viewing a user's profile page" do
 
       expect(page).not_to have_text("Reviews")
     end
+
+    it "show all the movies this user has favorited" do
+      movie1 = Movie.create!(movie_attributes(title: "Iron Man",
+        image_file_name: "ironman.png"))
+      movie2 = Movie.create!(movie_attributes(title: "Superman",
+        image_file_name: "superman.png"))
+      movie3 = Movie.create!(movie_attributes(title: "Black Panther",
+        image_file_name: "black-panther.png"))
+
+      movie1_favorite = movie1.favorites.create(user: @user)
+      movie3_favorite = movie3.favorites.create(user: @user)
+
+      visit user_url(@user)
+
+      expect(page).to have_text("Favorite Movies")
+      expect(page).to have_xpath("//a[contains(@href, '/movies/#{movie1.id}')]")
+      expect(page).to have_xpath("//img[contains(@src, 'ironman.png')]")
+      expect(page).to have_xpath("//a[contains(@href, '/movies/#{movie3.id}')]")
+      expect(page).to have_xpath("//img[contains(@src, 'black-panther.png')]")
+      expect(page).not_to have_xpath("//a[contains(@href, '/movies/#{movie2.id}')]")
+      expect(page).not_to have_xpath("//img[contains(@src, 'superman.png')]")
+    end
   end
 end
