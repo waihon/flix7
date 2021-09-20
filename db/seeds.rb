@@ -189,8 +189,39 @@ Movie.create!([
   }
 ])
 
+larry = User.create!(
+  name: "Larry",
+  email: "larry@example.com",
+  username: "larry",
+  admin: false,
+  password: "secretpa$$w0rd",
+  password_confirmation: "secretpa$$w0rd"
+)
+
+daisy = User.create!(
+  name: "Daisy",
+  email: "daisy@example.com",
+  username: "daisy",
+  admin: false,
+  password: "secretpa$$w0rd",
+  password_confirmation: "secretpa$$w0rd"
+)
+
+moe = User.create!(
+  name: "Moe",
+  email: "moe@example.com",
+  username: "moe",
+  admin: false,
+  password: "secretpa$$w0rd",
+  password_confirmation: "secretpa$$w0rd"
+)
+
 movie = Movie.find_by(title: "Captain Marvel")
 
-movie.reviews.create!(name: "Larry", stars: 5, comment: "Awesome")
-movie.reviews.create!(name: "Daily", stars: 4, comment: "Great!")
-movie.reviews.create!(name: "Moe", stars: 3, comment: "Spilled my popcorn!")
+movie.reviews.create!(user: larry, stars: 5, comment: "Awesome")
+movie.reviews.create!(user: daisy, stars: 4, comment: "Great!")
+movie.reviews.create!(user: moe, stars: 3, comment: "Spilled my popcorn!")
+
+movie.fans << larry
+movie.fans << daisy
+movie.fans << moe
