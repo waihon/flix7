@@ -11,6 +11,8 @@ $orange: #E8890C;
 $yellow: #ffc107;
 $light-yellow: #FFC;
 $red: #dc3545;
+$primary-background-color: #F5F5F5;
+$secondary-background-color: #237CBE;
 
 // Custom Variables
 
@@ -22,6 +24,7 @@ $error-color: $red;
 $error-background-color: $light-yellow;
 $sold-out-color: $yellow;
 $box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .09);
+$subdued-color: darken($primary-background-color, 20%);
 
 // Bootstrap Variable Overrides
 
@@ -604,4 +607,22 @@ section.errors {
 		position: absolute;
 		top: 0;
 	}
+}
+
+input[type="submit"].button {
+  font-size:     16px;
+  padding:       8px;
+  border-radius: 6px;
+  box-shadow:    0px;
+  border: 1px solid $subdued-color;
+
+  &.fave {
+    color: #FFF;
+    background: $secondary-background-color;
+  }
+
+  &.unfave {
+    color: $secondary-text-color;
+    background: $primary-background-color;
+  }
 }
