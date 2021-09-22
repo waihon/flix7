@@ -16,4 +16,20 @@ describe "A genre" do
     genre2.valid?
     expect(genre2.errors[:name].first).to eq("has already been taken")
   end
+
+  it "can contain many movies" do
+    movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
+    movie2 = Movie.create!(movie_attributes(title: "Captain Marvel"))
+    movie3 = Movie.create!(movie_attributes(title: "Black Panther"))
+
+    genre = Genre.create!(genre_attributes)
+
+    Characterization.create!(movie: movie1, genre: genre)
+    Characterization.create!(movie: movie3, genre: genre)
+
+    expect(genre.movies.count).to eq(2)
+    expect(genre.movies).to include(movie1)
+    expect(genre.movies).to include(movie3)
+    expect(genre.movies).not_to include(movie2)
+  end
 end
