@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe "Viewing an individual genre" do
   before do
-    @genre1 = Genre.create!(genre_attributes(name: "Action"))
-    @genre2 = Genre.create!(genre_attributes(name: "Adventure"))
+    @genre1 = Genre.create!(genre_attributes(name: "Action", image_file_name: "action.png"))
+    @genre2 = Genre.create!(genre_attributes(name: "Adventure", image_file_name: "adventure.png"))
 
     @movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
     @movie2 = Movie.create!(movie_attributes(title: "Captaion Marvel"))
@@ -20,6 +20,7 @@ describe "Viewing an individual genre" do
     visit genre_url(@genre1)
     expect(current_path).to eq(genre_path(@genre1))
     expect(page).to have_text(@genre1.name)
+    expect(page).to have_xpath("//img[contains(@src, 'action.png')]")
     expect(page).to have_link(@movie1.title)
     expect(page).to have_link(@movie3.title)
     expect(page).not_to have_link(@movie2.title)
@@ -27,6 +28,7 @@ describe "Viewing an individual genre" do
 
     visit genre_url(@genre2)
     expect(current_path).to eq(genre_path(@genre2))
+    expect(page).to have_xpath("//img[contains(@src, 'adventure.png')]")
     expect(page).to have_text(@genre2.name)
     expect(page).to have_link(@movie2.title)
     expect(page).to have_link(@movie4.title)
