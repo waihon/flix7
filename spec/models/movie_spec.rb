@@ -242,4 +242,19 @@ describe "A movie" do
     expect(movie2.critics).to include(user2)
     expect(movie2.critics).not_to include(user1)
   end
+
+  it "can exist in many genres" do
+    movie = Movie.create!(movie_attributes)
+    genre1 = Genre.create!(genre_attributes(name: "Action"))
+    genre2 = Genre.create!(genre_attributes(name: "Comedy"))
+    genre3 = Genre.create!(genre_attributes(name: "Drama"))
+
+    Characterization.create!(movie: movie, genre: genre1)
+    Characterization.create!(movie: movie, genre: genre3)
+
+    expect(movie.genres.count).to eq(2)
+    expect(movie.genres).to include(genre1)
+    expect(movie.genres).to include(genre3)
+    expect(movie.genres).not_to include(genre2)
+  end
 end
