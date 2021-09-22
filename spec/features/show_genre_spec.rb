@@ -1,0 +1,36 @@
+require 'rails_helper'
+
+describe "Viewing an individual genre" do
+  before do
+    @genre1 = Genre.create!(genre_attributes(name: "Action"))
+    @genre2 = Genre.create!(genre_attributes(name: "Adventure"))
+
+    @movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
+    @movie2 = Movie.create!(movie_attributes(title: "Captaion Marvel"))
+    @movie3 = Movie.create!(movie_attributes(title: "Black Panther"))
+    @movie4 = Movie.create!(movie_attributes(title: "Superman"))
+
+    @movie1.genres << @genre1
+    @movie3.genres << @genre1
+    @movie2.genres << @genre2
+    @movie4.genres << @genre2
+  end
+
+  it "shows movies associated with the genre" do
+    visit genre_url(@genre1)
+    expect(current_path).to eq(genre_path(@genre1))
+    expect(page).to have_text(@genre1.name)
+    expect(page).to have_link(@movie1.title)
+    expect(page).to have_link(@movie3.title)
+    expect(page).not_to have_link(@movie2.title)
+    expect(page).not_to have_link(@movie4.title)
+
+    visit genre_url(@genre2)
+    expect(current_path).to eq(genre_path(@genre2))
+    expect(page).to have_text(@genre2.name)
+    expect(page).to have_link(@movie2.title)
+    expect(page).to have_link(@movie4.title)
+    expect(page).not_to have_link(@movie1.title)
+    expect(page).not_to have_link(@movie3.title)
+  end
+end
