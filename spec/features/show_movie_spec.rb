@@ -78,9 +78,9 @@ describe "Viewing an individual movie" do
 
     visit movie_url(movie1)
     expect(page).to have_text("Genres")
-    expect(page).to have_text(genre1.name)
-    expect(page).to have_text(genre3.name)
-    expect(page).not_to have_text(genre2.name)
+    expect(page).to have_link(genre1.name)
+    expect(page).to have_link(genre3.name)
+    expect(page).not_to have_link(genre2.name)
   end
 
   context "when not signed in" do
