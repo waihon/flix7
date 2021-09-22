@@ -5,9 +5,9 @@ describe "Creating a new movie" do
     @admin = User.create!(user_attributes(admin: true))
     sign_in(@admin)
 
-    @genre1 = Genre.create!(name: "Genre 1")
-    @genre2 = Genre.create!(name: "Genre 2")
-    @genre3 = Genre.create!(name: "Genre 3")
+    @genre1 = Genre.create!(genre_attributes(name: "Action"))
+    @genre2 = Genre.create!(genre_attributes(name: "Comedy"))
+    @genre3 = Genre.create!(genre_attributes(name: "Drama"))
   end
 
   it "saves the movie and shows the new movie's details" do
