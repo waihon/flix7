@@ -30,6 +30,7 @@ end
 
 def genre_attributes(overrides = {})
   {
-    name: "Action"
+    name: "Action",
+    image_file_name: "action.png"
   }.merge(overrides)
 end
