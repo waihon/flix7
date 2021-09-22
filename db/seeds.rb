@@ -225,3 +225,36 @@ movie.reviews.create!(user: moe, stars: 3, comment: "Spilled my popcorn!")
 movie.fans << larry
 movie.fans << daisy
 movie.fans << moe
+
+Genre.create!([
+  {
+    name: "Action"
+  },
+  {
+    name: "Comedy"
+  },
+  {
+    name: "Drama"
+  },
+  {
+    name: "Romance"
+  },
+  {
+    name: "Thriller"
+  },
+  {
+    name: "Fantasy"
+  },
+  {
+    name: "Documentary"
+  },
+  {
+    name: "Adventure"
+  },
+  {
+    name: "Animation"
+  },
+  {
+    name: "Sci-Fi"
+  }
+])
