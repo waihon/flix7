@@ -32,4 +32,22 @@ describe "A genre" do
     expect(genre.movies).to include(movie3)
     expect(genre.movies).not_to include(movie2)
   end
+
+  it "accepts properly formatted image file names" do
+    file_names = %w[e.png genre.png genre.jpg]
+    file_names.each do |file_name|
+      genre = Genre.new(image_file_name: file_name)
+      genre.valid?
+      expect(genre.errors[:image_file_name].any?).to eq(false)
+    end
+  end
+
+  it "rejects improperly formatted image file names" do
+    file_names = %w[genre .jpg .png genre.gif genre.pdf genre.doc]
+    file_names.each do |file_name|
+      genre = Genre.new(image_file_name: file_name)
+      genre.valid?
+      expect(genre.errors[:image_file_name].any?).to eq(true)
+    end
+  end
 end
