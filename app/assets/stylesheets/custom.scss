@@ -157,7 +157,7 @@ section.movie {
 
 // Movie Show Page
 
-section.movie-details {
+section.movie-details, section.genre-details {
 	@extend .row;
 
 	.image {
