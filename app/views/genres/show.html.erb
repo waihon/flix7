@@ -1,0 +1,27 @@
+<section class="genre-details">
+  <div class="details">
+    <h1><%= @genre.name %> Movies</h1>
+  </div>
+</section>
+
+<% @movies.each do |movie| %>
+  <section class="movie" id=<%= "movie-#{movie.id}" %>>
+    <div class="image">
+      <%= image_tag movie.image_file_name %>
+    </div>
+    <div class="summary">
+      <h2>
+        <%= link_to movie.title, movie %>
+      </h2>
+      <h3>
+        <%= total_gross(movie) %>
+      </h3>
+      <span class="stars">
+        <%= render "shared/stars", percent: movie.average_stars_as_percent %>
+      </span>
+      <p>
+        <%= truncate(movie.description, length: 150, separator: ' ') %>
+      </p>
+    </div>
+  </section>
+<% end %>
