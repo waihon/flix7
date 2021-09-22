@@ -64,6 +64,25 @@ describe "Viewing an individual movie" do
     expect(page).not_to have_link(fan2.name)
   end
 
+  it "shows the genres" do
+    movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
+    movie2 = Movie.create!(movie_attributes(title: "Superman"))
+
+    genre1 = Genre.create!(genre_attributes(name: "Action"))
+    genre2 = Genre.create!(genre_attributes(name: "Comedy"))
+    genre3 = Genre.create!(genre_attributes(name: "Drama"))
+
+    movie1.genres << genre1
+    movie1.genres << genre3
+    movie2.genres << genre2
+
+    visit movie_url(movie1)
+    expect(page).to have_text("Genres")
+    expect(page).to have_text(genre1.name)
+    expect(page).to have_text(genre3.name)
+    expect(page).not_to have_text(genre2.name)
+  end
+
   context "when not signed in" do
     it "doesn't show Edit and Delete links" do
       movie = Movie.create!(movie_attributes)
