@@ -27,3 +27,9 @@ def user_attributes(overrides = {})
     username: "example180"
   }.merge(overrides)
 end
+
+def genre_attributes(overrides = {})
+  {
+    name: "Action"
+  }.merge(overrides)
+end
