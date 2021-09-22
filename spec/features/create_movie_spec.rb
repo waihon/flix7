@@ -38,9 +38,9 @@ describe "Creating a new movie" do
     expect(page).to have_text("New Movie Title")
     expect(page).to have_text("Movie successfully created!")
 
-    expect(page).to have_text(@genre1.text)
-    expect(page).to have_text(@genre2.text)
-    expect(page).not_to have_text(@genre3.text)
+    expect(page).to have_text(@genre1.name)
+    expect(page).to have_text(@genre2.name)
+    expect(page).not_to have_text(@genre3.name)
   end
 
   it "does not save the movie if it's invalid" do
