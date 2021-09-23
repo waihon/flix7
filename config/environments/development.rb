@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Turn off assets digest
   config.assets.digest = false
+
+  # Try to resolve Sprockets::Rails::Helper::AssetNotPrecompiled in Genres#index
+  # https://stackoverflow.com/questions/35683185/rails-sprocketsrailshelperassetnotprecompiled-in-development
+  config.assets.check_precompiled_asset = false
 end
