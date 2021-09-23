@@ -1,0 +1,20 @@
+<% @genres.each do |genre| %>
+  <section class="genre" id=<%= "genre-#{genre.id}" %>>
+    <div class="image">
+      <%= image_tag genre.image_file_name %>
+    </div>
+    <div class="summary">
+      <h2>
+        <%= link_to genre.name, genre %>
+      </h2>
+      <h3>
+        <%= pluralize(genre.movies.count, "Movie") %>
+      </h3>
+    </div>
+  </section>
+<% end %>
+<% if current_user_admin? %>
+  <section class="admin">
+    <%= link_to "Add New Genre", new_genre_path %>
+  </section>
+<% end %>
