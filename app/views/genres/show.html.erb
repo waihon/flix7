@@ -4,6 +4,11 @@
       <h1><%= @genre.name %> Movies</h1>
     </div>
     <%= image_tag @genre.image_file_name %>
+    <% if current_user_admin? %>
+      <section class="admin">
+        <%= link_to "Edit", edit_genre_path(@genre), class: "button" %>
+      </section>
+    <% end %>
   </div>
   <div class="details">
     <% @movies.each do |movie| %>
