@@ -7,6 +7,8 @@
     <% if current_user_admin? %>
       <section class="admin">
         <%= link_to "Edit", edit_genre_path(@genre), class: "button" %>
+        <%= link_to "Delete", genre_path(@genre), method: :delete,
+          data: { confirm: "Are you sure?" }, class: "button" %>
       </section>
     <% end %>
   </div>
