@@ -1,0 +1,11 @@
+<%= form_with(model: genre, local: true) do |f| %>
+  <%= render "shared/errors", object: genre %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, autofocus: true %>
+
+  <%= f.label :image_file_name %>
+  <%= f.text_field :image_file_name %>
+
+  <%= f.submit %>
+<% end %>
