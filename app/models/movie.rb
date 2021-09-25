@@ -31,6 +31,8 @@ class Movie < ApplicationRecord
 
   scope :rated, ->(rating) { released.where(rating: rating) }
 
+  scope :recent, ->(max=5) { released.limit(max) }
+
   def flop?
     total_gross.blank? || total_gross < 225_000_000
   end
