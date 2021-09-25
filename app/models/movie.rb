@@ -19,7 +19,7 @@ class Movie < ApplicationRecord
     message: "must be a JPG or PNG image"
   }
 
-  scope :released, -> { where("released_on < ?", Time.now).order(released_on: :desc) }
+  scope :released, -> { where("released_on <= ?", Time.now).order(released_on: :desc) }
 
   scope :hits, -> { where("total_gross >= ?", 300_000_000).order(total_gross: :desc) }
 
