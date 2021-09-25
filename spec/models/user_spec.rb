@@ -1,6 +1,32 @@
 require 'rails_helper'
 
 describe "A user" do
+  context "by_name query" do
+    it "return all the users ordered by their name in alphabetical order" do
+      user1 = User.create!(user_attributes(name: "Moe",
+        username: "moe", email: "moe@example.com"))
+      user2 = User.create!(user_attributes(name: "Daisy",
+        username: "daisy", email: "daisy@example.com"))
+      user3 = User.create!(user_attributes(name: "Larry",
+        username: "larry", email: "larry@example.com"))
+
+      expect(User.by_name).to eq([user2, user3, user1])
+    end
+  end
+
+  context "not_admins query" do
+    it "return all non-admin users ordered by their name in alphabetical order" do
+      user1 = User.create!(user_attributes(name: "Moe",
+        username: "moe", email: "moe@example.com", admin: false))
+      user2 = User.create!(user_attributes(name: "Daisy",
+        username: "daisy", email: "daisy@example.com", admin: true))
+      user3 = User.create!(user_attributes(name: "Larry",
+        username: "larry", email: "larry@example.com", admin: false))
+
+      expect(User.not_admins).to eq([user3, user1])
+    end
+  end
+
   it "requires a name" do
     user = User.new(name: "")
 
@@ -11,7 +37,7 @@ describe "A user" do
 
   it "requires an email" do
     user = User.new(email: "")
-    
+
     user.valid?
 
     expect(user.errors[:email].any?).to eq(true)
@@ -31,7 +57,7 @@ describe "A user" do
     emails.each do |email|
       user = User.new(email: email)
       user.valid?
-      expect(user.errors[:email].any?).to eq(true) 
+      expect(user.errors[:email].any?).to eq(true)
     end
   end
 
@@ -79,7 +105,7 @@ describe "A user" do
 
     expect(user.valid?).to eq(true)
   end
-  
+
   it "does not require a password when updating" do
     user = User.create!(user_attributes)
 
@@ -92,7 +118,7 @@ describe "A user" do
     user = User.new(password: "secretpassword")
 
     expect(user.password_digest.present?).to eq(true)
-    
+
   end
 
   it "allows password with a minimum length of 10" do
