@@ -19,21 +19,13 @@ class Movie < ApplicationRecord
     message: "must be a JPG or PNG image"
   }
 
-  def self.released
-    Movie.where("released_on < ?", Time.now).order(released_on: :desc)
-  end
+  scope :released, -> { where("released_on < ?", Time.now).order(released_on: :desc) }
 
-  def self.hits
-    Movie.where("total_gross >= ?", 300_000_000).order(total_gross: :desc)
-  end
+  scope :hits, -> { where("total_gross >= ?", 300_000_000).order(total_gross: :desc) }
 
-  def self.flops
-    Movie.where("total_gross < ?", 225_000_000).order(total_gross: :asc)
-  end
+  scope :flops, -> { where("total_gross < ?", 225_000_000).order(total_gross: :asc) }
 
-  def self.recently_added
-    order(created_at: :desc).limit(3)
-  end
+  scope :recently_added, -> { order(created_at: :desc).limit(3) }
 
   def flop?
     total_gross.blank? || total_gross < 225_000_000
