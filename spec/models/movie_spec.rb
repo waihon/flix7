@@ -24,20 +24,22 @@ describe "A movie" do
   end
 
   context "hits query" do
-    it "returns movies with at least $300M total gross, ordered with the highest gross movie first" do
-      movie1 = Movie.create(movie_attributes(total_gross: 300_000_000))
-      movie2 = Movie.create(movie_attributes(total_gross: 299_999_999))
-      movie3 = Movie.create(movie_attributes(total_gross: 300_000_001))
+    it "returns released movies with at least $300M total gross, ordered with the highest gross movie first" do
+      movie1 = Movie.create(movie_attributes(total_gross: 300_000_000, released_on: 3.months.ago))
+      movie2 = Movie.create(movie_attributes(total_gross: 299_999_999, released_on: 2.months.ago))
+      movie3 = Movie.create(movie_attributes(total_gross: 300_000_001, released_on: 1.month.ago))
+      movie4 = Movie.create(movie_attributes(total_gross: 300_000_002, released_on: 1.day.from_now))
 
       expect(Movie.hits).to eq([movie3, movie1])
     end
   end
 
   context "flops query" do
-    it "return movies with less than $225M total gross, ordered with the lowest grossing movie first" do
-      movie1 = Movie.create(movie_attributes(total_gross: 224_999_999))
-      movie2 = Movie.create(movie_attributes(total_gross: 225_000_000))
-      movie3 = Movie.create(movie_attributes(total_gross: 224_999_998))
+    it "return released movies with less than $225M total gross, ordered with the lowest grossing movie first" do
+      movie1 = Movie.create(movie_attributes(total_gross: 224_999_999, released_on: 3.months.ago))
+      movie2 = Movie.create(movie_attributes(total_gross: 225_000_000, released_on: 2.months.ago))
+      movie3 = Movie.create(movie_attributes(total_gross: 224_999_998, released_on: 1.month.ago))
+      movie4 = Movie.create(movie_attributes(total_gross: 224_999_997, released_on: 1.day.from_now))
 
       expect(Movie.flops).to eq([movie3, movie1])
     end
