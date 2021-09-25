@@ -17,6 +17,8 @@ class User < ApplicationRecord
   }
   validates :username, uniqueness: { case_sensitive: false }
 
+  scope :by_name, -> { order(name: :asc)  }
+
   def gravatar_id
     Digest::MD5::hexdigest(email.downcase)
   end
