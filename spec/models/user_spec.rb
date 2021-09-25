@@ -188,22 +188,18 @@ describe "A user" do
     expect(user2.errors[:username].first).to eq("has already been taken")
   end
 
-  it "has reviews" do
-    user = User.new(user_attributes)
+  it "has many reviews ordered with the most recent review first" do
+    user = User.create!(user_attributes)
 
-    movie1 = Movie.new(movie_attributes(title: "Iron Man"))
-    movie2 = Movie.new(movie_attributes(title: "Superman"))
+    movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
+    movie2 = Movie.create!(movie_attributes(title: "Superman"))
+    movie3 = Movie.create!(movie_attributes(title: "Captain Marvel"))
 
-    review1 = movie1.reviews.new(stars: 5, comment: "Two thumbs up!")
-    review1.user = user
-    review1.save!
+    review1 = movie1.reviews.create!(review_attributes(created_at: 30.days.ago, user: user))
+    review2 = movie2.reviews.create!(review_attributes(created_at: 7.days.ago, user: user))
+    review3 = movie3.reviews.create!(review_attributes(created_at: 1.day.ago, user: user))
 
-    review2 = movie2.reviews.new(stars: 3, comment: "Cool!")
-    review2.user = user
-    review2.save!
-
-    expect(user.reviews).to include(review1)
-    expect(user.reviews).to include(review2)
+    expect(user.reviews).to eq([review3, review2, review1])
   end
 
   it "has favorites" do
