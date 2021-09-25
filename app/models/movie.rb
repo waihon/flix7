@@ -27,6 +27,8 @@ class Movie < ApplicationRecord
 
   scope :recently_added, -> { order(created_at: :desc).limit(3) }
 
+  scope :upcoming, -> { where("released_on > ?", Time.now).order("released_on asc") }
+
   def flop?
     total_gross.blank? || total_gross < 225_000_000
   end
