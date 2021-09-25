@@ -227,14 +227,15 @@ describe "A movie" do
     expect(movie.valid?).to eq(true)
   end
 
-  it "has many reviews" do
-    movie = Movie.new(movie_attributes)
+  it "has many reviews ordered with the most recent review first" do
+    user = User.create!(user_attributes)
+    movie = Movie.create!(movie_attributes)
 
-    review1 = movie.reviews.new(review_attributes)
-    review2 = movie.reviews.new(review_attributes)
+    review1 = movie.reviews.create!(review_attributes(created_at: 30.days.ago, user: user))
+    review2 = movie.reviews.create!(review_attributes(created_at: 7.days.ago, user: user))
+    review3 = movie.reviews.create!(review_attributes(created_at: 1.day.ago, user: user))
 
-    expect(movie.reviews).to include(review1)
-    expect(movie.reviews).to include(review2)
+    expect(movie.reviews).to eq([review3, review2, review1])
   end
 
   it "deletes associated reviews" do
@@ -303,14 +304,9 @@ describe "A movie" do
 
     movie1 = Movie.new(movie_attributes(title: "Iron Man"))
     movie2 = Movie.new(movie_attributes(title: "Superman"))
+    review1 = movie1.reviews.new(review_attributes(user: user1))
 
-    review1 = movie1.reviews.new(stars: 5, comment: "Two thumbs up!")
-    review1.user = user1
-    review1.save!
-
-    review2 = movie2.reviews.new(stars: 3, comment: "Cool!")
-    review2.user = user2
-    review2.save!
+    review2 = movie2.reviews.new(review_attributes(user: user2))
 
     expect(movie1.critics).to include(user1)
     expect(movie1.critics).not_to include(user2)
