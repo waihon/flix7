@@ -328,4 +328,26 @@ describe "A movie" do
     expect(movie.genres).to include(genre3)
     expect(movie.genres).not_to include(genre2)
   end
+
+  it "generates a slug when it's created" do
+    movie = Movie.create!(movie_attributes(title: "X-Men: The Last Stand"))
+
+    expect(movie.slug).to eq("x-men-the-last-stand")
+  end
+
+  it "requires a unique, case insensitive title" do
+    movie1 = Movie.create!(movie_attributes)
+
+    movie2 = Movie.new(title: movie1.title.upcase)
+    movie2.valid? # populates errors
+    expect(movie2.errors[:title].first).to eq("has already been taken")
+  end
+
+  it "requires a unique slug" do
+    movie1 = Movie.create!(movie_attributes)
+
+    movie2 = Movie.new(slug: movie1.slug)
+    movie2.valid? # populates errors
+    expect(movie2.errors[:slug].first).to eq("has already been taken")
+  end
 end
