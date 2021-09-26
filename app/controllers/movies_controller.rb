@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :set_movie, only: [:show, :edit, :update, :destroy]
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
 
@@ -7,7 +8,6 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find(params[:id])
     @review = @movie.reviews.new
     @fans = @movie.fans
     @genres = @movie.genres
@@ -17,12 +17,9 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    @movie = Movie.find(params[:id])
   end
 
   def update
-    @movie = Movie.find(params[:id])
-
     if @movie.update(movie_params)
       redirect_to @movie, notice: "Movie successfully updated!"
     else
@@ -44,7 +41,6 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-    @movie = Movie.find(params[:id])
     @movie.destroy
     redirect_to movies_url, alert: "Movie successfully deleted!"
   end
@@ -64,5 +60,12 @@ private
     else
       :released
     end
+  end
+
+  def set_movie
+    # Raise an exception if a movie with the specific slug could not be found.
+    # If an exception is raised in production, we'll get a 404 page which is
+    # exactly what we want if a movie with the given slug isn't found.
+    @movie = Movie.find_by!(slug: params[:id])
   end
 end
