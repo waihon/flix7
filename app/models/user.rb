@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  before_save :format_email
+  before_save :format_username
+
   has_many :reviews, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_movies, through: :favorites, source: :movie
@@ -23,5 +26,15 @@ class User < ApplicationRecord
 
   def gravatar_id
     Digest::MD5::hexdigest(email.downcase)
+  end
+
+private
+
+  def format_email
+    self.email = email.downcase
+  end
+
+  def format_username
+    self.username = username.downcase
   end
 end
