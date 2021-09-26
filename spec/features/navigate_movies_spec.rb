@@ -6,9 +6,14 @@ describe "Navigating movies" do
 
     visit movie_url(movie)
 
+    expect(page).to have_css("a", text: "Released", class: nil)
+    expect(page).to have_css("a", text: "Upcoming", class: nil)
+
     click_link "Released"
     
     expect(current_path).to eq(movies_path)
+    expect(page).to have_css("a", text: "Released", class: "active")
+    expect(page).to have_css("a", text: "Upcoming", class: nil)
   end
 
   it "allows navigation from the listing page to the details page" do
