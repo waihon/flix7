@@ -83,6 +83,14 @@ describe "Viewing an individual movie" do
     expect(page).not_to have_link(genre2.name)
   end
 
+  it "has an SEO-friendly URL" do
+    movie = Movie.create!(movie_attributes(title: "X-Men: The Last Stand"))
+
+    visit movie_url(movie)
+
+    expect(current_path).to eq("/movies/x-men-the-last-stand")
+  end
+
   context "when not signed in" do
     it "doesn't show Edit and Delete links" do
       movie = Movie.create!(movie_attributes)
