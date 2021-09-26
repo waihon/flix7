@@ -2,13 +2,13 @@ class UsersController < ApplicationController
   before_action :require_signin, except: [:new, :create]
   before_action :require_correct_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
+  before_action :set_user, only: [:show, :destroy]
 
   def index
     @users = User.not_admins
   end
 
   def show
-    @user = User.find(params[:id])
     @reviews = @user.reviews
     @favorite_movies = @user.favorite_movies
   end
@@ -39,7 +39,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     # Only admin users can delete user accounts.
     # Sign out only if an admin user deleted their own account.
@@ -50,12 +49,16 @@ class UsersController < ApplicationController
 private
 
   def require_correct_user
-    @user = User.find(params[:id])
+    @user = User.find_by!(username: params[:id])
     redirect_to root_url unless current_user?(@user)
   end
 
   def user_params
     params.require(:user).
       permit(:name, :email, :username, :password, :password_confirmation)
+  end
+
+  def set_user
+    @user = User.find_by!(username: params[:id])
   end
 end
