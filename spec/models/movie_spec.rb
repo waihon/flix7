@@ -3,21 +3,21 @@ require 'rails_helper'
 describe "A movie" do
   context "released query" do
     it "returns movies with released on date in the past" do
-      movie = Movie.create(movie_attributes(released_on: 3.months.ago))
+      movie = Movie.create(movie_attributes(title: "Movie 1", released_on: 3.months.ago))
 
       expect(Movie.released).to include(movie)
     end
 
     it "does not return movies with released on date in the future" do
-      movie = Movie.create(movie_attributes(released_on: 3.months.from_now))
+      movie = Movie.create(movie_attributes(title: "Movie 1", released_on: 3.months.from_now))
 
       expect(Movie.released).not_to include(movie)
     end
 
     it "returns released movies ordered with the most recently-released movie first" do
-      movie1 = Movie.create(movie_attributes(released_on: 3.months.ago))
-      movie2 = Movie.create(movie_attributes(released_on: 2.months.ago))
-      movie3 = Movie.create(movie_attributes(released_on: 1.months.ago))
+      movie1 = Movie.create(movie_attributes(title: "Movie 1", released_on: 3.months.ago))
+      movie2 = Movie.create(movie_attributes(title: "Movie 2", released_on: 2.months.ago))
+      movie3 = Movie.create(movie_attributes(title: "Movie 3", released_on: 1.months.ago))
 
       expect(Movie.released).to eq([movie3, movie2, movie1])
     end
@@ -25,10 +25,10 @@ describe "A movie" do
 
   context "hits query" do
     it "returns released movies with at least $300M total gross, ordered with the highest gross movie first" do
-      movie1 = Movie.create(movie_attributes(total_gross: 300_000_000, released_on: 3.months.ago))
-      movie2 = Movie.create(movie_attributes(total_gross: 299_999_999, released_on: 2.months.ago))
-      movie3 = Movie.create(movie_attributes(total_gross: 300_000_001, released_on: 1.month.ago))
-      movie4 = Movie.create(movie_attributes(total_gross: 300_000_002, released_on: 1.day.from_now))
+      movie1 = Movie.create(movie_attributes(title: "Movie 1", total_gross: 300_000_000, released_on: 3.months.ago))
+      movie2 = Movie.create(movie_attributes(title: "Movie 2", total_gross: 299_999_999, released_on: 2.months.ago))
+      movie3 = Movie.create(movie_attributes(title: "Movie 3", total_gross: 300_000_001, released_on: 1.month.ago))
+      movie4 = Movie.create(movie_attributes(title: "Movie 4", total_gross: 300_000_002, released_on: 1.day.from_now))
 
       expect(Movie.hits).to eq([movie3, movie1])
     end
@@ -36,10 +36,10 @@ describe "A movie" do
 
   context "flops query" do
     it "return released movies with less than $225M total gross, ordered with the lowest grossing movie first" do
-      movie1 = Movie.create(movie_attributes(total_gross: 224_999_999, released_on: 3.months.ago))
-      movie2 = Movie.create(movie_attributes(total_gross: 225_000_000, released_on: 2.months.ago))
-      movie3 = Movie.create(movie_attributes(total_gross: 224_999_998, released_on: 1.month.ago))
-      movie4 = Movie.create(movie_attributes(total_gross: 224_999_997, released_on: 1.day.from_now))
+      movie1 = Movie.create(movie_attributes(title: "Movie 1", total_gross: 224_999_999, released_on: 3.months.ago))
+      movie2 = Movie.create(movie_attributes(title: "Movie 2", total_gross: 225_000_000, released_on: 2.months.ago))
+      movie3 = Movie.create(movie_attributes(title: "Movie 3", total_gross: 224_999_998, released_on: 1.month.ago))
+      movie4 = Movie.create(movie_attributes(title: "Movie 4", total_gross: 224_999_997, released_on: 1.day.from_now))
 
       expect(Movie.flops).to eq([movie3, movie1])
     end
@@ -58,8 +58,8 @@ describe "A movie" do
 
   context "upcoming query" do
     it "returns the movies with a released on date in the future" do
-      movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago))
-      movie2 = Movie.create!(movie_attributes(released_on: 3.months.from_now))
+      movie1 = Movie.create!(movie_attributes(title: "Movie 1", released_on: 3.months.ago))
+      movie2 = Movie.create!(movie_attributes(title: "Movie 2", released_on: 3.months.from_now))
 
       expect(Movie.upcoming).to eq([movie2])
     end
@@ -67,9 +67,9 @@ describe "A movie" do
 
   context "rated query" do
     it "returns released movies with the specified rating" do
-      movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago, rating: "PG"))
-      movie2 = Movie.create!(movie_attributes(released_on: 3.months.ago, rating: "PG-13"))
-      movie3 = Movie.create!(movie_attributes(released_on: 1.month.from_now, rating: "PG"))
+      movie1 = Movie.create!(movie_attributes(title: "Movie 1", released_on: 3.months.ago, rating: "PG"))
+      movie2 = Movie.create!(movie_attributes(title: "Movie 2", released_on: 3.months.ago, rating: "PG-13"))
+      movie3 = Movie.create!(movie_attributes(title: "Movie 3", released_on: 1.month.from_now, rating: "PG"))
 
       expect(Movie.rated("PG")).to eq([movie1])
     end
@@ -77,39 +77,13 @@ describe "A movie" do
 
   context "recent query" do
     before do
-      @movie1 = Movie.create!(movie_attributes(released_on: 3.months.ago))
-      @movie2 = Movie.create!(movie_attributes(released_on: 2.months.ago))
-      @movie3 = Movie.create!(movie_attributes(released_on: 1.month.ago))
-      @movie4 = Movie.create!(movie_attributes(released_on: 1.week.ago))
-      @movie5 = Movie.create!(movie_attributes(released_on: 1.day.ago))
-      @movie6 = Movie.create!(movie_attributes(released_on: 1.hour.ago))
-      @movie7 = Movie.create!(movie_attributes(released_on: 1.day.from_now))
-    end
-
-    context "grossed_greater_than query" do
-      it "returns released movies with total gross greater than a specified amount" do
-        movie1 = Movie.create(movie_attributes(total_gross: 500_000_001, released_on: 3.months.ago))
-        movie2 = Movie.create(movie_attributes(total_gross: 499_999_999, released_on: 2.months.ago))
-        movie3 = Movie.create(movie_attributes(total_gross: 500_000_002, released_on: 1.month.ago))
-        movie4 = Movie.create(movie_attributes(total_gross: 500_000_003, released_on: 1.day.from_now))
-
-        high_grossed = Movie.grossed_greater_than(500_000_000)
-        expect(high_grossed).to include(movie3)
-        expect(high_grossed).to include(movie1)
-      end
-    end
-
-    context "grossed_less_than query" do
-      it "returns released movies with total gross less than a specified amount" do
-        movie1 = Movie.create(movie_attributes(total_gross: 24_999_999, released_on: 3.months.ago))
-        movie2 = Movie.create(movie_attributes(total_gross: 25_000_000, released_on: 2.months.ago))
-        movie3 = Movie.create(movie_attributes(total_gross: 24_999_998, released_on: 1.month.ago))
-        movie4 = Movie.create(movie_attributes(total_gross: 24_999_997, released_on: 1.day.from_now))
-
-        low_grossed = Movie.grossed_less_than(25_000_000)
-        expect(low_grossed).to include(movie3)
-        expect(low_grossed).to include(movie1)
-      end
+      @movie1 = Movie.create!(movie_attributes(title: "Movie 1", released_on: 3.months.ago))
+      @movie2 = Movie.create!(movie_attributes(title: "Movie 2", released_on: 2.months.ago))
+      @movie3 = Movie.create!(movie_attributes(title: "Movie 3", released_on: 1.month.ago))
+      @movie4 = Movie.create!(movie_attributes(title: "Movie 4", released_on: 1.week.ago))
+      @movie5 = Movie.create!(movie_attributes(title: "Movie 5", released_on: 1.day.ago))
+      @movie6 = Movie.create!(movie_attributes(title: "Movie 6", released_on: 1.hour.ago))
+      @movie7 = Movie.create!(movie_attributes(title: "Movie 7", released_on: 1.day.from_now))
     end
 
     it "returns a specified number of released movies ordered with the most recent movie first" do
@@ -118,6 +92,32 @@ describe "A movie" do
 
     it "returns a default of 5 released movies ordered with the most recent movie first" do
       expect(Movie.recent).to eq([@movie6, @movie5, @movie4, @movie3, @movie2])
+    end
+  end
+
+  context "grossed_greater_than query" do
+    it "returns released movies with total gross greater than a specified amount" do
+      movie1 = Movie.create(movie_attributes(title: "Movie 1", total_gross: 500_000_001, released_on: 3.months.ago))
+      movie2 = Movie.create(movie_attributes(title: "Movie 2", total_gross: 499_999_999, released_on: 2.months.ago))
+      movie3 = Movie.create(movie_attributes(title: "Movie 3", total_gross: 500_000_002, released_on: 1.month.ago))
+      movie4 = Movie.create(movie_attributes(title: "Movie 4", total_gross: 500_000_003, released_on: 1.day.from_now))
+
+      high_grossed = Movie.grossed_greater_than(500_000_000)
+      expect(high_grossed).to include(movie3)
+      expect(high_grossed).to include(movie1)
+    end
+  end
+
+  context "grossed_less_than query" do
+    it "returns released movies with total gross less than a specified amount" do
+      movie1 = Movie.create(movie_attributes(title: "Movie 1", total_gross: 24_999_999, released_on: 3.months.ago))
+      movie2 = Movie.create(movie_attributes(title: "Movie 2", total_gross: 25_000_000, released_on: 2.months.ago))
+      movie3 = Movie.create(movie_attributes(title: "Movie 3", total_gross: 24_999_998, released_on: 1.month.ago))
+      movie4 = Movie.create(movie_attributes(title: "Movie 4", total_gross: 24_999_997, released_on: 1.day.from_now))
+
+      low_grossed = Movie.grossed_less_than(25_000_000)
+      expect(low_grossed).to include(movie3)
+      expect(low_grossed).to include(movie1)
     end
   end
 
