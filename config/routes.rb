@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   root "movies#index"
 
   %w(hits flops upcoming recent).each do |filter|
-    get "movies/#{filter}" => "movies#index", filter: filter, as: "#{filter}_movies"
+    get "movies/#{filter}" => redirect("/movies/filter/#{filter}")
   end
+  get "movies/filter/:filter" => "movies#index", as: "filtered_movies"
 
   resources :movies do
     resources :reviews
