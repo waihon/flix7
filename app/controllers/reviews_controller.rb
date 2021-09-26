@@ -49,6 +49,9 @@ private
   end
 
   def set_movie
-    @movie = Movie.find(params[:movie_id])
+    # Raise an exception if a movie with the specific slug could not be found.
+    # If an exception is raised in production, we'll get a 404 page which is
+    # exactly what we want if a movie with the given slug isn't found.
+    @movie = Movie.find_by!(slug: params[:movie_id])
   end
 end
