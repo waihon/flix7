@@ -8,7 +8,7 @@ describe "Filtering movies" do
 
     click_link "Hits"
 
-    expect(current_path).to eq(hits_movies_path)
+    expect(current_path).to eq(filtered_movies_path(:hits))
 
     expect(page).to have_text(movie.title)
   end
@@ -20,7 +20,7 @@ describe "Filtering movies" do
 
     click_link "Flops"
 
-    expect(current_path).to eq(flops_movies_path)
+    expect(current_path).to eq(filtered_movies_path(:flops))
 
     expect(page).to have_text(movie.title)
   end
@@ -32,7 +32,7 @@ describe "Filtering movies" do
 
     click_link "Upcoming"
 
-    expect(current_path).to eq(upcoming_movies_path)
+    expect(current_path).to eq(filtered_movies_path(:upcoming))
 
     expect(page).to have_text(movie.title)
   end
@@ -44,7 +44,7 @@ describe "Filtering movies" do
 
     click_link "Recent"
 
-    expect(current_path).to eq(recent_movies_path)
+    expect(current_path).to eq(filtered_movies_path(:recent))
 
     expect(page).to have_text(movie.title)
   end  
