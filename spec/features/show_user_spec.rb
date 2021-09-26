@@ -97,11 +97,11 @@ describe "Viewing a user's profile page" do
       visit user_url(@user)
 
       expect(page).to have_text("Favorite Movies")
-      expect(page).to have_xpath("//a[contains(@href, '/movies/#{movie1.id}')]")
+      expect(page).to have_xpath("//a[contains(@href, '/movies/#{movie1.to_param}')]")
       expect(page).to have_xpath("//img[contains(@src, 'ironman.png')]")
-      expect(page).to have_xpath("//a[contains(@href, '/movies/#{movie3.id}')]")
+      expect(page).to have_xpath("//a[contains(@href, '/movies/#{movie3.to_param}')]")
       expect(page).to have_xpath("//img[contains(@src, 'black-panther.png')]")
-      expect(page).not_to have_xpath("//a[contains(@href, '/movies/#{movie2.id}')]")
+      expect(page).not_to have_xpath("//a[contains(@href, '/movies/#{movie2.to_param}')]")
       expect(page).not_to have_xpath("//img[contains(@src, 'superman.png')]")
     end
   end
