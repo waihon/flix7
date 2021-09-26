@@ -28,6 +28,10 @@ class User < ApplicationRecord
     Digest::MD5::hexdigest(email.downcase)
   end
 
+  def to_param
+    username
+  end
+
 private
 
   def format_email
