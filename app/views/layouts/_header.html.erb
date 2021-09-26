@@ -6,16 +6,16 @@
         <%= nav_link_to "Released", movies_path %>
       </li>
       <li>
-        <%= nav_link_to "Upcoming", upcoming_movies_path %>
+        <%= nav_link_to "Upcoming", filtered_movies_path(:upcoming) %>
       </li>
       <li>
-        <%= nav_link_to "Recent", recent_movies_path %>
+        <%= nav_link_to "Recent", filtered_movies_path(:recent) %>
       </li>
       <li>
-        <%= nav_link_to "Hits", hits_movies_path %>
+        <%= nav_link_to "Hits", filtered_movies_path(:hits) %>
       </li>
       <li>
-        <%= nav_link_to "Flops", flops_movies_path %>
+        <%= nav_link_to "Flops", filtered_movies_path(:flops) %>
       </li>
       <li>
         <%= nav_link_to "Genres", genres_path %>
