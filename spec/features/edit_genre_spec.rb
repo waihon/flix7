@@ -25,6 +25,9 @@ describe "Editing a genre" do
     fill_in "Name", with: "Updated Genre Name"
     click_button "Update Genre"
 
+    # Name has been updated and so has slug
+    @genre2.reload
+
     expect(current_path).to eq(genre_path(@genre2))
     expect(page).to have_text("Genre successfully updated!")
     expect(page).to have_text("Updated Genre Name")
