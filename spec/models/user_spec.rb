@@ -78,6 +78,13 @@ describe "A user" do
     expect(user2.errors[:email].first).to eq("has already been taken")
   end
 
+  it "converts email address to lowercase before saving" do
+    email = "USER@EXAMPLE.COM"
+    user = User.create!(user_attributes(email: email))
+
+    expect(user.email).to eq(email.downcase)
+  end
+
   it "is valid with example attributes" do
     user = User.new(user_attributes)
 
@@ -186,6 +193,13 @@ describe "A user" do
     user2 = User.new(username: user1.username.upcase)
     user2.valid?
     expect(user2.errors[:username].first).to eq("has already been taken")
+  end
+
+  it "converts username to lowercase before saving" do
+    username = "USER"
+    user = User.create!(user_attributes(username: username))
+
+    expect(user.username).to eq(username.downcase)
   end
 
   it "has many reviews ordered with the most recent review first" do
