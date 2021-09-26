@@ -53,6 +53,10 @@ class Movie < ApplicationRecord
     (average_stars / 5.0) * 100.0
   end
 
+  def to_param
+    slug
+  end
+
 private
 
   def set_slug
