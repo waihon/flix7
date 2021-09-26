@@ -7,6 +7,7 @@ class Movie < ApplicationRecord
   has_many :genres, through: :characterizations
 
   validates :title, presence: true
+  validates :title, uniqueness: { case_sensitive: false }
   validates :description, presence: true
   validates :description, length: { minimum: 25 }, allow_blank: true
   RATINGS = %w[G PG PG-13 R NC-17]
@@ -18,6 +19,7 @@ class Movie < ApplicationRecord
     with: /\w+\.(jpg|png)\z/i,
     message: "must be a JPG or PNG image"
   }
+  validates :slug, uniqueness: true
 
   scope :released, -> { where("released_on <= ?", Time.now).order(released_on: :desc) }
 
