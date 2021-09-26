@@ -350,4 +350,11 @@ describe "A movie" do
     movie2.valid? # populates errors
     expect(movie2.errors[:slug].first).to eq("has already been taken")
   end
+
+  it "overrides the default implementation of to_param" do
+    movie = Movie.create!(movie_attributes)
+
+    expect(movie.to_param).to eq(movie.slug)
+    expect(movie.to_param).not_to eq(movie.id)
+  end
 end
