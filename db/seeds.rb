@@ -228,33 +228,43 @@ movie.fans << moe
 
 Genre.create!([
   {
-    name: "Action"
+    name: "Action",
+    image_file_name: "action.png"
   },
   {
-    name: "Comedy"
+    name: "Comedy",
+    image_file_name: "comedy.png"
   },
   {
-    name: "Drama"
+    name: "Drama",
+    image_file_name: "drama.png"
   },
   {
-    name: "Romance"
+    name: "Romance",
+    image_file_name: "romance.png"
   },
   {
-    name: "Thriller"
+    name: "Thriller",
+    image_file_name: "thriller.png"
   },
   {
-    name: "Fantasy"
+    name: "Fantasy",
+    image_file_name: "fantasy.png"
   },
   {
-    name: "Documentary"
+    name: "Documentary",
+    image_file_name: "documentary.png"
   },
   {
-    name: "Adventure"
+    name: "Adventure",
+    image_file_name: "adventure.png"
   },
   {
-    name: "Animation"
+    name: "Animated",
+    image_file_name: "animated.png"
   },
   {
-    name: "Sci-Fi"
+    name: "Sci-Fi",
+    image_file_name: "sci-fi.png"
   }
 ])
