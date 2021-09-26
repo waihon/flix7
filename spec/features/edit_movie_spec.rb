@@ -26,6 +26,9 @@ describe "Editing a movie" do
     check(@genre3.name)
     click_button "Update Movie"
 
+    # Title has been updated and so has slug
+    movie.reload
+
     expect(current_path).to eq(movie_path(movie))
     expect(page).to have_text("Updated Movie Title")
     expect(page).to have_text("Movie successfully updated!")
