@@ -8,6 +8,8 @@ class Movie < ApplicationRecord
   has_many :characterizations, dependent: :destroy
   has_many :genres, through: :characterizations
 
+  has_one_attached :main_image
+
   validates :title, presence: true
   validates :title, uniqueness: { case_sensitive: false }
   validates :description, presence: true
