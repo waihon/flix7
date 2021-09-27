@@ -17,10 +17,6 @@ class Movie < ApplicationRecord
   validates :released_on, presence: true
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates :duration, presence: true
-  validates :image_file_name, format: {
-    with: /\w+\.(jpg|png)\z/i,
-    message: "must be a JPG or PNG image"
-  }
   validates :slug, uniqueness: true
 
   scope :released, -> { where("released_on <= ?", Time.now).order(released_on: :desc) }
