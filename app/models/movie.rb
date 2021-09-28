@@ -21,6 +21,8 @@ class Movie < ApplicationRecord
   validates :duration, presence: true
   validates :slug, uniqueness: true
 
+  validate :acceptable_image
+
   scope :released, -> { where("released_on <= ?", Time.now).order(released_on: :desc) }
 
   scope :hits, -> { released.where("total_gross >= ?", 300_000_000).order(total_gross: :desc) }
@@ -59,5 +61,13 @@ private
 
   def set_slug
     self.slug = title.parameterize
+  end
+
+  def acceptable_image
+    return unless main_image.attached?
+
+    unless main_image.blob.byte_size <= 1.megabyte
+      errors.add(:main_image, "is too big")
+    end
   end
 end
