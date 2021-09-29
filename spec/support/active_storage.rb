@@ -23,6 +23,10 @@ def pdf_file
   { io: File.open(Rails.root.join('spec', 'files', 'document.pdf')), filename: 'document.pdf', content_type: 'application/pdf' }
 end
 
-def assets_image(filename, content_type="image/png")
+def assets_image(filename="placeholder.png", content_type="image/png")
   { io: File.open(Rails.root.join('app', 'assets', 'images', filename)), filename: filename, content_type: content_type }
+end
+
+def assets_image_path(filename="placeholder.png")
+  Rails.root.join('app', 'assets', 'images', filename)
 end
