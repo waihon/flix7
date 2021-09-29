@@ -36,8 +36,7 @@ describe "Viewing the list of movies" do
         }.squish,
         released_on: "2008-05-02",
         director: "Jon Favreau",
-        duration: "126 min",
-        image_file_name: "ironman.png")
+        duration: "126 min")
 
       movie2 = Movie.create(title: "Superman",
         rating: "PG",
@@ -50,8 +49,7 @@ describe "Viewing the list of movies" do
         }.squish,
         released_on: "1978-12-15",
         director: "Richard Donner",
-        duration: "143 min",
-        image_file_name: "superman.png")
+        duration: "143 min")
 
       movie3 = Movie.create(title: "Spider-Man",
         rating: "PG-13",
@@ -65,8 +63,11 @@ describe "Viewing the list of movies" do
         }.squish,
         released_on: "2002-05-03",
         director: "Sam Raimi",
-        duration: "121 min",
-        image_file_name: "spiderman.png")
+        duration: "121 min")
+
+      movie1.main_image.attach(assets_image("ironman.png"))
+      movie2.main_image.attach(assets_image("superman.png"))
+      movie3.main_image.attach(assets_image("spiderman.png"))
 
       movie1.reviews.create(review_attributes(stars: 2, user: @user))
       movie1.reviews.create(review_attributes(stars: 3, user: @user))
