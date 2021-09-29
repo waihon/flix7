@@ -185,21 +185,25 @@ describe "A movie" do
     expect(movie.errors[:total_gross].any?).to eq(true)
   end
 
-  it "accepts properly formatted image file names" do
-    file_names = %w[e.png movie.png movie.jpg]
-    file_names.each do |file_name|
-      movie = Movie.new(image_file_name: file_name)
+  it "accepts image files with valid content type" do
+    files = %w[png_file jpg_file]
+    files.each do |file|
+      movie = Movie.new
+      # file methods are defined in spec/support/active_storage.rb
+      movie.main_image.attach(send(file))
       movie.valid?
-      expect(movie.errors[:image_file_name].any?).to eq(false)
+      expect(movie.errors[:main_image].any?).to eq(false)
     end
   end
 
-  it "rejects improperly formatted image file names" do
-    file_names = %w[movie .jpg .png movie.gif movie.pdf movie.doc]
-    file_names.each do |file_name|
-      movie = Movie.new(image_file_name: file_name)
+  it "rejects image files with invalid content type" do
+    files = %w[gif_file tiff_file pdf_file]
+    files.each do |file|
+      movie = Movie.new
+      # file methods are defined in spec/support/active_storage.rb
+      movie.main_image.attach(send(file))
       movie.valid?
-      expect(movie.errors[:image_file_name].any?).to eq(true)
+      expect(movie.errors[:main_image].any?).to eq(true)
     end
   end
 
