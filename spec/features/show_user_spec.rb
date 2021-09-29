@@ -84,12 +84,12 @@ describe "Viewing a user's profile page" do
     end
 
     it "show all the movies this user has favorited" do
-      movie1 = Movie.create!(movie_attributes(title: "Iron Man",
-        image_file_name: "ironman.png"))
-      movie2 = Movie.create!(movie_attributes(title: "Superman",
-        image_file_name: "superman.png"))
-      movie3 = Movie.create!(movie_attributes(title: "Black Panther",
-        image_file_name: "black-panther.png"))
+      movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
+      movie1.main_image.attach(assets_image("ironman.png"))
+      movie2 = Movie.create!(movie_attributes(title: "Superman"))
+      movie2.main_image.attach(assets_image("superman.png"))
+      movie3 = Movie.create!(movie_attributes(title: "Black Panther"))
+      movie3.main_image.attach(assets_image("black-panther.png"))
 
       movie1_favorite = movie1.favorites.create(user: @user)
       movie3_favorite = movie3.favorites.create(user: @user)
