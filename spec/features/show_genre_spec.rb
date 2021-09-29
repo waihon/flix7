@@ -6,9 +6,14 @@ describe "Viewing an individual genre" do
     @genre2 = Genre.create!(genre_attributes(name: "Adventure", image_file_name: "adventure.png"))
 
     @movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
-    @movie2 = Movie.create!(movie_attributes(title: "Captaion Marvel"))
+    @movie1.main_image.attach(assets_image("ironman.png"))
+    @movie2 = Movie.create!(movie_attributes(title: "Captain Marvel"))
+    @movie2.main_image.attach(assets_image("captain-marvel.png"))
     @movie3 = Movie.create!(movie_attributes(title: "Black Panther"))
+    @movie3.main_image.attach(assets_image("black-panther.png"))
     @movie4 = Movie.create!(movie_attributes(title: "Superman"))
+    @movie4.main_image.attach(assets_image("superman.png"))
+
 
     @movie1.genres << @genre1
     @movie3.genres << @genre1
