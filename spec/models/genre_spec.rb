@@ -54,4 +54,13 @@ describe "A genre" do
       expect(genre.errors[:main_image].any?).to eq(true)
     end
   end
+
+  it "rejects image files over 1 MB" do
+    genre = Genre.new
+    genre.main_image.attach(big_image_file)
+
+    genre.valid?
+
+    expect(genre.errors[:main_image].first).to eq("is too big")
+  end
 end
