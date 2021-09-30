@@ -33,21 +33,25 @@ describe "A genre" do
     expect(genre.movies).not_to include(movie2)
   end
 
-  it "accepts properly formatted image file names" do
-    file_names = %w[e.png genre.png genre.jpg]
-    file_names.each do |file_name|
-      genre = Genre.new(image_file_name: file_name)
+  it "accepts image files with valid content type" do
+    files = %w[png_file jpg_file]
+    files.each do |file|
+      genre = Genre.new
+      # file methods are defined in spec/support/active_storage.rb
+      genre.main_image.attach(send(file))
       genre.valid?
-      expect(genre.errors[:image_file_name].any?).to eq(false)
+      expect(genre.errors[:main_image].any?).to eq(false)
     end
   end
 
-  it "rejects improperly formatted image file names" do
-    file_names = %w[genre .jpg .png genre.gif genre.pdf genre.doc]
-    file_names.each do |file_name|
-      genre = Genre.new(image_file_name: file_name)
+  it "rejects image files with invalid content type" do
+    files = %w[gif_file tiff_file pdf_file]
+    files.each do |file|
+      genre = Genre.new
+      # file methods are defined in spec/support/active_storage.rb
+      genre.main_image.attach(send(file))
       genre.valid?
-      expect(genre.errors[:image_file_name].any?).to eq(true)
+      expect(genre.errors[:main_image].any?).to eq(true)
     end
   end
 end
