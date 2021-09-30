@@ -43,7 +43,7 @@ class GenresController < ApplicationController
 private
 
   def genre_params
-    params.require(:genre).permit(:name, :image_file_name)
+    params.require(:genre).permit(:name, :main_image)
   end
 
   def set_genre
