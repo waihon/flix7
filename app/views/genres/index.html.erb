@@ -1,7 +1,7 @@
 <% @genres.each do |genre| %>
   <section class="genre" id=<%= "genre-#{genre.id}" %>>
     <div class="image">
-      <%= image_tag genre.image_file_name %>
+      <%= main_image(genre) %>
     </div>
     <div class="summary">
       <h2>

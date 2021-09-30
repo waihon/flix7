@@ -3,7 +3,7 @@
     <div class="details">
       <h1><%= @genre.name %> Movies</h1>
     </div>
-    <%= image_tag @genre.image_file_name %>
+    <%= main_image(@genre) %>
     <% if current_user_admin? %>
       <section class="admin">
         <%= link_to "Edit", edit_genre_path(@genre), class: "button" %>
