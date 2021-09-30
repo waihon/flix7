@@ -207,6 +207,15 @@ describe "A movie" do
     end
   end
 
+  it "rejects image files over 1 MB" do
+    movie = Movie.new
+    movie.main_image.attach(big_image_file)
+
+    movie.valid?
+
+    expect(movie.errors[:main_image].first).to eq("is too big")
+  end
+
   it "accepts any rating that is in an approved list" do
     ratings = %w[G PG PG-13 R NC-17]
     ratings.each do |rating|
