@@ -2,8 +2,10 @@ require 'rails_helper'
 
 describe "Viewing an individual genre" do
   before do
-    @genre1 = Genre.create!(genre_attributes(name: "Action", image_file_name: "action.png"))
-    @genre2 = Genre.create!(genre_attributes(name: "Adventure", image_file_name: "adventure.png"))
+    @genre1 = Genre.create!(genre_attributes(name: "Action"))
+    @genre1.main_image.attach(assets_image("action.png"))
+    @genre2 = Genre.create!(genre_attributes(name: "Adventure"))
+    @genre2.main_image.attach(assets_image("adventure.png"))
 
     @movie1 = Movie.create!(movie_attributes(title: "Iron Man"))
     @movie1.main_image.attach(assets_image("ironman.png"))
