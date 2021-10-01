@@ -17,7 +17,7 @@ describe "Creating a new genre" do
     expect(current_path).to eq(new_genre_path)
 
     fill_in "Name", with: "Thriller"
-    fill_in "Image file name", with: "thriller.png"
+    attach_file "Main image", assets_image_path("thriller.png")
 
     click_button "Create Genre"
 
