@@ -234,43 +234,50 @@ movie.fans << moe
 
 Genre.create!([
   {
-    name: "Action",
-    image_file_name: "action.png"
+    name: "Action"
   },
   {
-    name: "Comedy",
-    image_file_name: "comedy.png"
+    name: "Comedy"
   },
   {
-    name: "Drama",
-    image_file_name: "drama.png"
+    name: "Drama"
   },
   {
-    name: "Romance",
-    image_file_name: "romance.png"
+    name: "Romance"
   },
   {
-    name: "Thriller",
-    image_file_name: "thriller.png"
+    name: "Thriller"
   },
   {
-    name: "Fantasy",
-    image_file_name: "fantasy.png"
+    name: "Fantasy"
   },
   {
-    name: "Documentary",
-    image_file_name: "documentary.png"
+    name: "Documentary"
   },
   {
-    name: "Adventure",
-    image_file_name: "adventure.png"
+    name: "Adventure"
   },
   {
-    name: "Animated",
-    image_file_name: "animated.png"
+    name: "Animated"
   },
   {
-    name: "Sci-Fi",
-    image_file_name: "sci-fi.png"
+    name: "Sci-Fi"
   }
 ])
+
+[
+  ["Action", "action.png"],
+  ["Comedy", "comedy.png"],
+  ["Drama", "drama.png"],
+  ["Romance", "romance.png"],
+  ["Thriller", "thriller.png"],
+  ["Fantasy", "fantasy.png"],
+  ["Documentary", "documentary.png"],
+  ["Adventure", "adventure.png"],
+  ["Animated", "animated.png"],
+  ["Sci-Fi", "sci-fi.png"]
+].each do |genre_name, file_name|
+  genre = Genre.find_by(name: genre_name)
+  file = File.open(Rails.root.join("app/assets/images/#{file_name}"))
+  genre.main_image.attach(io: file, filename: file_name)
+end
