@@ -2,9 +2,12 @@ require 'rails_helper'
 
 describe "Viewing the list of genres" do
   before do
-    @genre1 = Genre.create!(genre_attributes(name: "Action", image_file_name: "action.png"))
-    @genre2 = Genre.create!(genre_attributes(name: "Adventure", image_file_name: "adventure.png"))
-    @genre3 = Genre.create!(genre_attributes(name: "Sci-Fi", image_file_name: "sci-fi.png"))
+    @genre1 = Genre.create!(genre_attributes(name: "Action"))
+    @genre1.main_image.attach(assets_image("action.png"))
+    @genre2 = Genre.create!(genre_attributes(name: "Adventure"))
+    @genre2.main_image.attach(assets_image("adventure.png"))
+    @genre3 = Genre.create!(genre_attributes(name: "Sci-Fi"))
+    @genre3.main_image.attach(assets_image("sci-fi.png"))
 
     @movie1 = Movie.create!(movie_attributes(title: "Avengers: Endgame"))
     @movie2 = Movie.create!(movie_attributes(title: "Captain Marvel"))
