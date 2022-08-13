@@ -7,6 +7,8 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+// For Stimulus, you must import controllers in your JavaScript entrypoint file.
+import "../controllers"
 
 Rails.start()
 Turbolinks.start()
