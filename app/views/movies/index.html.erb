@@ -1,6 +1,8 @@
 <div class="search" align="center">
   <%= form_with(url: movies_path, method: :get,
         data: {
+          turbo_frame: "movies_results",
+          turbo_action: "advance",
           controller: "form",
           action: "input->form#submit" }) do |f| %>
     <div>
@@ -10,7 +12,9 @@
   <% end %>
 </div>
 
-<%= render @movies %>
+<%= turbo_frame_tag "movies_results" do %>
+  <%= render @movies %>
+<% end %>
 
 <% if current_user_admin? %>
   <section class="admin">
