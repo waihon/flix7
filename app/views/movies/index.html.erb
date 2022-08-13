@@ -1,3 +1,15 @@
+<div class="search" align="center">
+  <%= form_with(url: movies_path, method: :get,
+        data: {
+          controller: "form",
+          action: "input->form#submit" }) do |f| %>
+    <div>
+      <%= f.search_field :name, placeholder: "Find a movie...",
+        value: params[:name] %>
+    </div>
+  <% end %>
+</div>
+
 <% @movies.each do |movie| %>
   <section class="movie" id=<%= "movie-#{movie.id}" %>>
     <div class="image">
