@@ -4,12 +4,15 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
+//import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 // For Stimulus, you must import controllers in your JavaScript entrypoint file.
 import "../controllers"
+import { Turbo } from "@hotwired/turbo-rails"
 
 Rails.start()
-Turbolinks.start()
+//Turbolinks.start()
 ActiveStorage.start()
+Turbo.session.drive = true
+Turbo.setProgressBarDelay(100)  // Default is 500 ms
