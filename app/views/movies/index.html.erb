@@ -10,27 +10,8 @@
   <% end %>
 </div>
 
-<% @movies.each do |movie| %>
-  <section class="movie" id=<%= "movie-#{movie.id}" %>>
-    <div class="image">
-      <%= main_image(movie) %>
-    </div>
-    <div class="summary">
-      <h2>
-        <%= link_to movie.title, movie %>
-      </h2>
-      <h3>
-        <%= total_gross(movie) %>
-      </h3>
-      <span class="stars">
-        <%= render "shared/stars", percent: movie.average_stars_as_percent %>
-      </span>
-      <p>
-        <%= truncate(movie.description, length: 150, separator: ' ') %>
-      </p>
-    </div>
-  </section>
-<% end %>
+<%= render @movies %>
+
 <% if current_user_admin? %>
   <section class="admin">
     <%= link_to "Add New Movie", new_movie_path %>
