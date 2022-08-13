@@ -40,6 +40,9 @@ gem 'aws-sdk-s3', require: false
 # Growing Rails Applications in Practice
 gem 'active_type'
 
+# # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "stimulus-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
