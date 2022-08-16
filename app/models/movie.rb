@@ -41,6 +41,10 @@ class Movie < ApplicationRecord
 
   scope :grossed_less_than, ->(amount) { released.where("total_gross < ?", amount) }
 
+  scope :with_query, ->(query) {
+    where("lower(title) LIKE ?", "%#{query.downcase}%") if query.present?
+  }
+
   def flop?
     total_gross.blank? || total_gross < 225_000_000
   end

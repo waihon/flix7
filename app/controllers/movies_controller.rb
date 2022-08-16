@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   before_action :require_admin, except: [:index, :show]
 
   def index
-    @movies = Movie.send(movies_filter)
+    @movies = Movie.send(movies_filter).with_query(params[:query])
   end
 
   def show

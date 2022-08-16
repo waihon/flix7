@@ -6,8 +6,8 @@
           controller: "form",
           action: "input->form#submit" }) do |f| %>
     <div>
-      <%= f.search_field :name, placeholder: "Find a movie...",
-        value: params[:name] %>
+      <%= f.search_field :query, placeholder: "Find movies by their title...",
+        value: params[:query] %>
     </div>
     <%= f.hidden_field :filter, value: params[:filter] %>
   <% end %>
