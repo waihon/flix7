@@ -9,6 +9,7 @@
       <%= f.search_field :name, placeholder: "Find a movie...",
         value: params[:name] %>
     </div>
+    <%= f.hidden_field :filter, value: params[:filter] %>
   <% end %>
 </div>
 
