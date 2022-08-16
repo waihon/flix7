@@ -22,3 +22,12 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Commands
+
+### 46. Search Movies
+
+* `./bin/rails stimulus:install`
+* `./bin/rails turbo:install`
+* `./bin/rails turbo:install:redis`
+* `./bin/rails generate stimulus form`
