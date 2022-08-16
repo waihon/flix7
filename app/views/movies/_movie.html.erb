@@ -4,7 +4,7 @@
   </div>
   <div class="summary">
     <h2>
-      <%= link_to movie.title, movie %>
+      <%= link_to movie.title, movie, data: { turbo_frame: "_top" } %>
     </h2>
     <h3>
       <%= total_gross(movie) %>
