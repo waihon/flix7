@@ -20,7 +20,7 @@ class GenresController < ApplicationController
     if @genre.save
       redirect_to genres_url, notice: "Genre successfully created!"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class GenresController < ApplicationController
     if @genre.update(genre_params)
       redirect_to @genre, notice: "Genre successfully updated!"
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
