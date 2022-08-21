@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to movie_reviews_url(@movie), notice: "Thanks for your review!"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to session.delete(:referer_url), notice: "Review successfully updated!"
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
