@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       session[:intended_url] = nil
     else
       flash.now[:alert] = "Invalid email/password combination!"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
