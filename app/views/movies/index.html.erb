@@ -14,7 +14,7 @@
 </div>
 
 <%= turbo_frame_tag "movies_results" do %>
-  <%= render @movies %>
+  <%= render partial: "movie", collection: @movies, cached: true %>
 <% end %>
 
 <% if current_user_admin? %>
