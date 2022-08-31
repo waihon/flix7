@@ -1,0 +1,13 @@
+<section class="genre" id=<%= "genre-#{genre.id}" %>>
+  <div class="image">
+    <%= main_image(genre, true) %>
+  </div>
+  <div class="summary">
+    <h2>
+      <%= link_to genre.name, genre %>
+    </h2>
+    <h3>
+      <%= pluralize(genre.movies.count, "Movie") %>
+    </h3>
+  </div>
+</section>
