@@ -1,9 +1,17 @@
 module ApplicationHelper
-  def main_image(record)
+  def main_image(record, link=false)
     if record.main_image.attached?
-      image_tag record.main_image.variant(resize_to_limit: [150, nil])
+      image = record.main_image.variant(resize_to_limit: [150, nil])
     else
-      image_tag "placeholder.png"
+      image = "placeholder.png"
+    end
+
+    if link
+      link_to record do
+        image_tag image
+      end
+    else
+      image_tag image
     end
   end
 end
