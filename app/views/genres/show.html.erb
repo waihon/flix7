@@ -14,25 +14,9 @@
   </div>
   <div class="details">
     <% @movies.each do |movie| %>
-      <section class="movie" id=<%= "movie-#{movie.id}" %>>
-        <div class="image">
-          <%= main_image(movie) %>
-        </div>
-        <div class="summary">
-          <h2>
-            <%= link_to movie.title, movie %>
-          </h2>
-          <h3>
-            <%= total_gross(movie) %>
-          </h3>
-          <span class="stars">
-            <%= render "shared/stars", percent: movie.average_stars_as_percent %>
-          </span>
-          <p>
-            <%= truncate(movie.description, length: 150, separator: ' ') %>
-          </p>
-        </div>
-      </section>
+      <% cache movie do %>
+        <%= render movie%>
+      <% end %>
     <% end %>
   </div>
 </section>
