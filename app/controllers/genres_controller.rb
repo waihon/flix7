@@ -5,6 +5,7 @@ class GenresController < ApplicationController
 
   def index
     @genres = Genre.order('name ASC')
+    @page_title = "Genres"
   end
 
   def show

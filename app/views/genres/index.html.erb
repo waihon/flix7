@@ -1,3 +1,4 @@
+<% content_for_title(@page_title) %>
 <% @genres.each do |genre| %>
   <% cache genre do %>
     <%= render genre %>
