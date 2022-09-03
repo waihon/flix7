@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @page_title = "Sign Up"
   end
 
   def create
@@ -28,6 +29,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @page_title = "Account Settings"
   end
 
   def update

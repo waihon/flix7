@@ -1,3 +1,5 @@
+<% content_for_title(page_title) %>
+
 <%= form_with(model: user, local: true) do |f| %>
   <%= render "shared/errors", object: user %>
 
