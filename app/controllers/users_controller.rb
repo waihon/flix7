@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :require_correct_user, only: [:edit, :update]
   before_action :require_admin, only: [:destroy]
   before_action :set_user, only: [:show, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
     @users = User.not_admins
@@ -66,5 +67,9 @@ private
 
   def set_user
     @user = User.find_by!(username: params[:id])
+  end
+
+  def record_not_found
+    redirect_to users_url, alert: "User '#{params[:id]}' not found!"
   end
 end
