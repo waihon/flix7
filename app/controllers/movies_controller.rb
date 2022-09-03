@@ -4,6 +4,7 @@ class MoviesController < ApplicationController
   before_action :require_admin, except: [:index, :show]
 
   def index
+    @page_title = movies_filter_title
     @movies = Movie.send(movies_filter).with_query(params[:query])
   end
 
@@ -60,6 +61,10 @@ private
     else
       :released
     end
+  end
+
+  def movies_filter_title
+    "#{movies_filter.to_s.titlecase} Movies"
   end
 
   def set_movie
