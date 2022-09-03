@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def new
     build_sign_in
+    @page_title = "Sign In"
   end
 
   def create
