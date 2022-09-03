@@ -50,12 +50,16 @@ private
 
   def require_correct_user
     @user = User.find_by!(username: params[:id])
-    redirect_to root_url unless current_user?(@user)
+    redirect_to root_url unless current_user?(@user) || current_user_admin?
   end
 
   def user_params
-    params.require(:user).
-      permit(:name, :email, :username, :password, :password_confirmation)
+    if current_user_admin?
+      params.require(:user).permit!
+    else
+      params.require(:user).
+        permit(:name, :email, :username, :password, :password_confirmation)
+    end
   end
 
   def set_user
