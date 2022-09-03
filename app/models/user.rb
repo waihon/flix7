@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   before_save :format_email
   before_save :format_username
+  before_save :encrypt_data, unless: ->(model) { model.admin? }
+  after_save :clear_cache, if: ->(model) { model.admin? }
 
   has_many :reviews, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -41,4 +43,15 @@ private
   def format_username
     self.username = username.downcase
   end
+
+  def encrypt_data
+    puts "Encrypting data..."
+    puts "Data encrypted!"
+  end
+
+  def clear_cache
+    puts "Clearing cache..."
+    puts "Cache cleared!"
+  end
+
 end
