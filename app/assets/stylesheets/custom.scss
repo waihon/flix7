@@ -43,6 +43,19 @@ $secondary: $dark-gray;
 	@extend .container;
 }
 
+// Div with multiple elemnts of differnt types on the same line
+.flex {
+  display: flex;
+
+  &.left {
+    justify-content: left;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+}
+
 // Header and Nav
 
 header {
@@ -63,6 +76,11 @@ header {
 		}
 
 		a.button {
+			@extend .btn, .btn-outline-secondary;
+    }
+
+    // Navbar button with delete method such as Sign Out
+		.button {
 			@extend .btn, .btn-outline-secondary;
     }
 
@@ -286,10 +304,12 @@ section.user {
 
 			&.edit {
 				@extend .btn-outline-secondary;
+        margin-right: 10px; // right spacing for real buttons
 			}
 
 			&.delete {
 				@extend .btn-danger;
+        margin-right: 10px; // right spacing for real buttons
 			}
 		}
 	}
@@ -434,6 +454,15 @@ section.admin {
 		@extend .btn, .btn-secondary;
 		letter-spacing: 1px;
 		text-transform: uppercase;
+	}
+
+  // Real button with delete method by default
+	.button {
+		@extend .btn, .btn-secondary;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+    margin-left: 10px;
+    margin-right: 10px;
 	}
 }
 
