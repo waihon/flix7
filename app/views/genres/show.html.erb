@@ -6,9 +6,11 @@
     <%= main_image(@genre) %>
     <% if current_user_admin? %>
       <section class="admin">
-        <%= link_to "Edit", edit_genre_path(@genre), class: "button" %>
-        <%= link_to "Delete", genre_path(@genre), method: :delete,
-          data: { confirm: "Are you sure?" }, class: "button" %>
+        <div class="flex left">
+          <%= button_to "Edit", edit_genre_path(@genre), method: :get, class: "button" %>
+          <%= button_to "Delete", genre_path(@genre), method: :delete,
+            data: { confirm: "Are you sure?" }, class: "button" %>
+        </div>
       </section>
     <% end %>
   </div>
