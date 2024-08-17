@@ -20,7 +20,7 @@ describe "Deleting a review" do
       expect(page).to have_text(@review3.comment)
 
       within find("#review-#{@review2.id}") do
-        click_link "Delete"
+        click_button "Delete"
       end
 
       expect(current_path).to eq(movie_reviews_path(@movie))

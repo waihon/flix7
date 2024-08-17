@@ -55,16 +55,16 @@ describe "Viewing a list of reviews" do
     visit movie_reviews_url(movie1)
 
     within find("#review-#{review1.id}") do
-      expect(page).to have_link("Edit")
-      expect(page).to have_link("Delete")
+      expect(page).to have_button("Edit")
+      expect(page).to have_button("Delete")
     end
     within find("#review-#{review2.id}") do
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
     within find("#review-#{review3.id}") do
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
 
     sign_in(user2)
@@ -72,16 +72,16 @@ describe "Viewing a list of reviews" do
     visit movie_reviews_url(movie1)
 
     within find("#review-#{review1.id}") do
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
     within find("#review-#{review2.id}") do
-      expect(page).to have_link("Edit")
-      expect(page).to have_link("Delete")
+      expect(page).to have_button("Edit")
+      expect(page).to have_button("Delete")
     end
     within find("#review-#{review3.id}") do
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
 
     sign_in(user3)
@@ -89,16 +89,16 @@ describe "Viewing a list of reviews" do
     visit movie_reviews_url(movie1)
 
     within find("#review-#{review1.id}") do
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
     within find("#review-#{review2.id}") do
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
     within find("#review-#{review3.id}") do
-      expect(page).to have_link("Edit")
-      expect(page).to have_link("Delete")
+      expect(page).to have_button("Edit")
+      expect(page).to have_button("Delete")
     end
   end
 end

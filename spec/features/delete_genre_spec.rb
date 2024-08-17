@@ -13,7 +13,7 @@ describe "Deleting a genre" do
   it "destroys the genre and shows the genres listing without the deleted genre" do
     visit genre_path(@genre2)
 
-    click_link "Delete"
+    click_button "Delete"
 
     expect(current_path).to eq(genres_path)
     expect(page).to have_link(@genre1.name)

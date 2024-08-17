@@ -15,7 +15,7 @@ describe "Editing a movie" do
     movie.genres << @genre2
 
     visit movie_url(movie)
-    click_link 'Edit'
+    click_button 'Edit'
 
     expect(current_path).to eq(edit_movie_path(movie))
     expect(find_field('Title').value).to eq(movie.title)

@@ -15,7 +15,7 @@ describe "Viewing a user's profile page" do
       expect(page).to have_text(@user.created_at.strftime("%B %Y"))
       expect(page.find("#profile-image")["src"]).to have_content(@user.gravatar_id)
 
-      expect(page).to have_link("Edit Account")
+      expect(page).to have_button("Edit Account")
     end
 
     it "doesn't show Edit Account link if it's not the signed in user" do
@@ -24,7 +24,7 @@ describe "Viewing a user's profile page" do
 
       visit user_url(user2)
 
-      expect(page).not_to have_link("Edit Account")
+      expect(page).not_to have_button("Edit Account")
     end
 
     it "show all the reviews this user has written" do

@@ -10,7 +10,7 @@ describe "Deleting a user" do
     it "cannot see Delete Account link for own account" do
       visit user_path(@user)
 
-      expect(page).not_to have_link "Delete Account"
+      expect(page).not_to have_button "Delete Account"
     end
 
     it "cannot see Delete Account link for another acount" do
@@ -20,7 +20,7 @@ describe "Deleting a user" do
 
       visit user_path(another_user)
 
-      expect(page).not_to have_link "Delete Account"
+      expect(page).not_to have_button "Delete Account"
     end
   end
 
@@ -35,7 +35,7 @@ describe "Deleting a user" do
     it "destroys another user and redirects to the home page" do
       visit user_path(@user)
 
-      click_link "Delete Account"
+      click_button "Delete Account"
 
       expect(current_path).to eq(root_path)
       expect(page).to have_text("Account successfully deleted!")
@@ -43,14 +43,14 @@ describe "Deleting a user" do
       visit users_path
 
       expect(page).not_to have_text(@user.name)
-      expect(page).to have_link("Sign Out")
+      expect(page).to have_button("Sign Out")
       expect(page).not_to have_link("Sign In")
     end
 
     it "destroys own account and auto signed out to the home page" do
       visit user_path(@admin)
 
-      click_link "Delete Account"
+      click_button "Delete Account"
 
       expect(current_path).to eq(root_path)
       expect(page).to have_text("Account successfully deleted!")

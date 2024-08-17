@@ -18,7 +18,7 @@ describe "Editing a genre" do
     expect(current_path).to eq(genre_path(@genre2))
     expect(page).to have_text(@genre2.name)
 
-    click_link("Edit")
+    click_button("Edit")
     expect(current_path).to eq(edit_genre_path(@genre2))
     expect(find_field('Name').value).to eq(@genre2.name)
 

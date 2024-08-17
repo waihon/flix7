@@ -32,7 +32,7 @@ describe "Signing in" do
 
     expect(page).to have_link(user.name)
     expect(page).to have_link("Account Settings")
-    expect(page).to have_link("Sign Out")
+    expect(page).to have_button("Sign Out")
 
     expect(page).not_to have_link("Sign In")
     expect(page).not_to have_link("Sign Up")
@@ -61,7 +61,7 @@ describe "Signing in" do
 
     expect(page).not_to have_link(user.name)
     expect(page).not_to have_link("Account Settings")
-    expect(page).not_to have_link("Sign Out")
+    expect(page).not_to have_button("Sign Out")
   end
 
   it "signs in the user if the username/password combination is valid" do
@@ -83,7 +83,7 @@ describe "Signing in" do
 
     expect(page).to have_link(user.name)
     expect(page).to have_link("Account Settings")
-    expect(page).to have_link("Sign Out")
+    expect(page).to have_button("Sign Out")
 
     expect(page).not_to have_link("Sign In")
     expect(page).not_to have_link("Sign Up")
@@ -111,7 +111,7 @@ describe "Signing in" do
 
     expect(page).not_to have_link(user.name)
     expect(page).not_to have_link("Account Settings")
-    expect(page).not_to have_link("Sign Out")
+    expect(page).not_to have_button("Sign Out")
   end
 
   it "redirects to the intented URL" do

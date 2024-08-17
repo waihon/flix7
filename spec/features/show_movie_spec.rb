@@ -100,8 +100,8 @@ describe "Viewing an individual movie" do
 
       expect(current_path).to eq(movie_path(movie))
 
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
 
     it "doesn't show Post Review form" do
@@ -126,8 +126,8 @@ describe "Viewing an individual movie" do
 
       expect(current_path).to eq(movie_path(movie))
 
-      expect(page).not_to have_link("Edit")
-      expect(page).not_to have_link("Delete")
+      expect(page).not_to have_button("Edit")
+      expect(page).not_to have_button("Delete")
     end
 
     it "show Post Review form" do
@@ -156,8 +156,8 @@ describe "Viewing an individual movie" do
 
       expect(current_path).to eq(movie_path(movie))
 
-      expect(page).to have_link("Edit")
-      expect(page).to have_link("Delete")
+      expect(page).to have_button("Edit")
+      expect(page).to have_button("Delete")
     end
   end
 end

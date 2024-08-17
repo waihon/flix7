@@ -20,7 +20,7 @@ describe "Editing a review" do
       expect(page).to have_text(@review3.comment)
 
       within find("#review-#{@review2.id}") do
-        click_link "Edit"
+        click_button "Edit"
       end
 
       expect(current_path).to eq(edit_movie_review_path(@movie, @review2))

@@ -6,7 +6,7 @@ describe "Signing out" do
 
     sign_in(user)
 
-    click_link "Sign Out"
+    click_button "Sign Out"
 
     expect(page).to have_text("signed out")
     expect(page).not_to have_link("Sign Out")

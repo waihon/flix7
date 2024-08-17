@@ -8,7 +8,7 @@ describe "Editing a user" do
 
     visit user_url(user)
 
-    click_link "Edit Account"
+    click_button "Edit Account"
 
     expect(current_path).to eq(edit_user_path(user))
 
