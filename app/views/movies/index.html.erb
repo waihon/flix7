@@ -23,4 +23,8 @@
   <section class="admin">
     <%= link_to "Add New Movie", new_movie_path %>
   </section>
+<% elsif true %>
+  <section class="admin">
+    <%= render "shared/disabled_button", label: "Add New Movie" %>
+  </section>
 <% end %>

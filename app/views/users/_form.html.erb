@@ -23,6 +23,8 @@
       <%= check_box(:user, :admin) %>
       <%= f.label :admin, "Admin?" %>
     </div>
+  <% elsif true %>
+    <%= render "shared/disabled_check_box", label: "Admin?", id: "admin" %>
   <% end %>
 
   <%= f.submit button_value(user) %>

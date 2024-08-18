@@ -8,4 +8,8 @@
   <section class="admin">
     <%= link_to "Add New Genre", new_genre_path %>
   </section>
+<% elsif true %>
+  <section class="admin">
+    <%= render "shared/disabled_button", label: "Add New Genre" %>
+  </section>
 <% end %>

@@ -12,6 +12,13 @@
             data: { confirm: "Are you sure?" }, class: "button" %>
         </div>
       </section>
+    <% elsif true %>
+      <section class="admin">
+        <div class="flex left">
+          <%= render "shared/disabled_button", label: "Edit" %>
+          <%= render "shared/disabled_button", label: "Delete" %>
+        </div>
+      </section>
     <% end %>
   </div>
   <div class="details">

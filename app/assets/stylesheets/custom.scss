@@ -56,6 +56,11 @@ $secondary: $dark-gray;
   }
 }
 
+// Contains disabled input elements
+span {
+  @extend .d-inline-block;
+}
+
 // Header and Nav
 
 header {

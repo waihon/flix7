@@ -11,11 +11,15 @@
       <% if current_user?(@user) || current_user_admin? %>
         <%= button_to "Edit Account", edit_user_path(@user), method: :get,
                     class: "button edit" %>
+      <% elsif true %>
+        <%= render "shared/disabled_button", label: "Edit Account", custom_class: "button edit" %>
       <% end %>
       <% if current_user_admin? %>
         <%= button_to "Delete Account", @user, method: :delete,
                     form: { data: { turbo_confirm: "Permanently delete your account!?" } },
                     class: "button delete" %>
+      <% elsif true %>
+        <%= render "shared/disabled_button", label: "Delete Account", custom_class: "button delete" %>
       <% end %>
     </div>
   </div>
