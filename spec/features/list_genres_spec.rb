@@ -63,6 +63,12 @@ describe "Viewing the list of genres" do
       expect(current_path).to eq(genres_path)
 
       expect(page).not_to have_link("Add New Genre")
+
+      if true
+        expect(page).to have_button("Add New Genre", disabled: true)
+      else
+        expect(page).not_to have_button("Add New Genre", disabled: true)
+      end
     end
   end
 
@@ -78,6 +84,12 @@ describe "Viewing the list of genres" do
       expect(current_path).to eq(genres_path)
 
       expect(page).not_to have_link("Add New Genre")
+
+      if true
+        expect(page).to have_button("Add New Genre", disabled: true)
+      else
+        expect(page).not_to have_button("Add New Genre", disabled: true)
+      end
     end
   end
 
@@ -93,6 +105,8 @@ describe "Viewing the list of genres" do
       expect(current_path).to eq(genres_path)
 
       expect(page).to have_link("Add New Genre")
+
+      expect(page).not_to have_button("Add New Genre", disabled: true)
     end
   end
 end

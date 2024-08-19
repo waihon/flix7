@@ -9,7 +9,7 @@ describe "Signing out" do
     click_button "Sign Out"
 
     expect(page).to have_text("signed out")
-    expect(page).not_to have_link("Sign Out")
+    expect(page).not_to have_button("Sign Out")
     expect(page).to have_link("Sign In")
   end
 end

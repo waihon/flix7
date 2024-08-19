@@ -15,6 +15,12 @@ describe "Viewing the list of movies" do
 
       expect(current_path).to eq(movies_path)
       expect(page).not_to have_link("Add New Movie")
+
+      if true
+        expect(page).to have_button("Add New Movie", disabled: true)
+      else
+        expect(page).not_to have_button("Add New Movie", disabled: true)
+      end
     end
   end
 
@@ -135,6 +141,12 @@ describe "Viewing the list of movies" do
 
       expect(current_path).to eq(movies_path)
       expect(page).not_to have_link("Add New Movie")
+
+      if true
+        expect(page).to have_button("Add New Movie", disabled: true)
+      else
+        expect(page).not_to have_button("Add New Movie", disabled: true)
+      end
     end
   end
 
@@ -149,6 +161,8 @@ describe "Viewing the list of movies" do
 
       expect(current_path).to eq(movies_path)
       expect(page).to have_link("Add New Movie")
+
+      expect(page).not_to have_button("Add New Movie", disabled: true)
     end
   end
 end

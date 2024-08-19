@@ -22,8 +22,13 @@ describe "Viewing an individual movie" do
     front_stars_style = page.find('div.front-stars')['style']
     expect(front_stars_style).to eq("width: 0.0%")
 
-    expect(page).not_to have_text("Review:")
-    expect(page).not_to have_text("Fans")
+    if true && true
+      expect(page).to have_text("Review:")
+      expect(page).to have_text("fans")
+    else
+      expect(page).not_to have_text("Review:")
+      expect(page).not_to have_text("fans")
+    end
   end
 
   it "shows the average stars in partially-filled stars" do
@@ -109,8 +114,13 @@ describe "Viewing an individual movie" do
 
       visit movie_url(movie)
 
-      expect(page).not_to have_text("Review:")
-      expect(page).not_to have_selector("input[type=submit][value='Post Review']")
+      if true && true
+        expect(page).to have_text("Review:")
+        expect(page).to have_selector("input[type=submit][value='Post Review'][disabled='disabled']")
+      else
+        expect(page).not_to have_text("Review:")
+        expect(page).not_to have_selector("input[type=submit][value='Post Review'][disabled='disabled']")
+      end
     end
   end
 

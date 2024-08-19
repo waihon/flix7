@@ -56,7 +56,7 @@ describe "Deleting a user" do
       expect(page).to have_text("Account successfully deleted!")
 
       expect(page).not_to have_text(@admin.name)
-      expect(page).not_to have_link("Sign Out")
+      expect(page).not_to have_button("Sign Out")
       expect(page).to have_link("Sign In")
       expect(page).to have_link("Sign Up")
     end
