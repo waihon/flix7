@@ -1,9 +1,7 @@
 <% content_for_title(@page_title) %>
-<% @genres.each do |genre| %>
-  <% cache genre do %>
-    <%= render genre %>
-  <% end %>
-<% end %>
+
+<%= render partial: "genre", collection: @genres, cached: true %>
+
 <% if current_user_admin? %>
   <section class="admin">
     <%= link_to "Add New Genre", new_genre_path %>

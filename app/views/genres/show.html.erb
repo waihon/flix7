@@ -22,10 +22,6 @@
     <% end %>
   </div>
   <div class="details">
-    <% @movies.each do |movie| %>
-      <% cache movie do %>
-        <%= render movie%>
-      <% end %>
-    <% end %>
+    <%= render partial: "movies/movie", collection: @movies, cached: true %>
   </div>
 </section>
