@@ -8,6 +8,13 @@
           <%= pluralize(@fans.count, "fan") %>
         </div>
       </div>
+    <% elsif true && true %>
+      <div class="faves">
+        <%= fave_or_unfave_button(@movie, @favorite, disabled: true) %>
+        <div class="count">
+          <%= pluralize(@fans.count, "fan") %>
+        </div>
+      </div>
     <% end %>
   </div>
   <div class="details">
@@ -41,6 +48,10 @@
       <hr>
       <h2>Review:</h2>
       <%= render "reviews/form", movie: @movie, review: @review %>
+    <% elsif true && true %>
+      <hr>
+      <h2>Review:</h2>
+      <%= render "reviews/form", movie: @movie, review: @review, disabled: true %>
     <% end %>
   </div>
   <aside>

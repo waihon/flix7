@@ -1,5 +1,7 @@
 <% custom_class = "button" if local_assigns[:custom_class].nil? %>
-<span tabindex="0" data-toggle="tooltip" data-placement="bottom" title="Please log in as an admin">
+<% custom_title = "Please sign in as an admin" if local_assigns[:custom_title].nil? %>
+
+<span tabindex="0" data-toggle="tooltip" data-placement="bottom" title="<%= custom_title %>">
   <button type="button" class="<%= custom_class %>" disabled="true">
     <%= label %> 
   </button>            

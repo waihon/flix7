@@ -230,7 +230,15 @@ section.movie-details, section.genre-details {
 		margin-top: 1rem;
 
 		.button {
-			@extend .input-group-prepend;
+			//@extend .input-group-prepend;
+      // Copied from input[type="submit"].fave and input[type="submit"].unfave
+      // because they somehow are not longer recognized.
+			@extend .btn, .btn-outline-secondary;
+			border-color: #cdd3d8;
+			border-right: none;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			margin-top: 0;
 		}
 
 		.count {

@@ -24,6 +24,16 @@
             <%= button_to "Delete", movie_review_path(@movie, review), class: "delete-button",
                         method: :delete, data: { confirm: "Are you sure?" } %>
           </div>
+        <% elsif !current_user && true && true %>
+          <div class="flex left">
+            <%= render "shared/disabled_button", label: "Edit", custom_class: "edit-button", custom_title: "Please sign in first" %>
+            <%= render "shared/disabled_button", label: "Delete", custom_class: "delete-button", custom_title: "Please sign in first" %>
+          </div>
+        <% elsif true && true %>
+          <div class="flex left">
+            <%= render "shared/disabled_button", label: "Edit", custom_class: "edit-button", custom_title: "You can't edit a review posted by another user" %>
+            <%= render "shared/disabled_button", label: "Delete", custom_class: "delete-button", custom_title: "You can't delete a review posted by another user" %>
+          </div>
         <% else %>
           &nbsp;
         <% end %>

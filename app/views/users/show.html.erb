@@ -41,6 +41,9 @@
                 <%= link_to "Edit", edit_movie_review_path(review.movie, review), class: "edit-button" %>
                 <%= link_to "Delete", movie_review_path(review.movie, review), class: "delete-button",
                             method: :delete, data: { confirm: "Are you sure" } %>
+            <% elsif true && true %>
+              <%= render "shared/disabled_button", label: "Edit", custom_class: "edit-button", custom_title: "You can't edit a review posted by another user" %>
+              <%= render "shared/disabled_button", label: "Delete", custom_class: "delete-button", custom_title: "You can't delete a review posted by another user" %>
             <% end %>
           </p>
         </div>
